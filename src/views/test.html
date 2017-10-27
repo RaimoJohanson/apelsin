@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300" rel="stylesheet">
+    <title>TEST</title>
+    <link rel="stylesheet" type="text/css" href="{{ base_path }}css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{ base_path }}css/kohandatud.css" />
+</head>
+
+<body>
+    <form action="/v1/recognize/C123456" method="post" enctype="multipart/form-data">
+
+        <input type="file" name="image">
+        <input type="submit" value="GO" name="submit">
+    </form>
+</body>
+
+</html>
