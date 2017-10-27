@@ -2,6 +2,13 @@
 # AUTOMAATVÄRAV API
 
 ## Reference document
+Start DB: 
+$ mysql-ctl start
+Access DB:
+$ mysql-ctl cli
+Dev DB:
+use 9;
+
 
 ### KEYS & VALUES
 Format of the keys are consistent throughout the API.
