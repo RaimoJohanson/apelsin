@@ -22,7 +22,7 @@ module.exports = function(app) {
         read: function(realm_id) {
 
             return new Promise((resolve, reject) => {
-                Cameras.selectWhere(['id', 'asset_tag', 'alias'], { realm_id: realm_id }).then(result => {
+                Cameras.selectWhere(['id', 'asset_tag', 'ip_address', 'alias'], { realm_id: realm_id }).then(result => {
                     resolve(result);
                 }).catch(reject);
 
