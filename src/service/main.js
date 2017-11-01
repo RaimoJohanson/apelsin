@@ -49,27 +49,12 @@ module.exports = function(app) {
 
                 var p3 = new Promise((resolve, reject) => {
 
-                    Cameras.select('id', { realm_id: realm_id }).then(cameras => {
-
-                        let log_output = [];
-                        async.each(cameras, (camera, cb) => {
-                            Logs.select('*', { camera_id: camera.id }).then(result => {
-
-                                log_output = log_output.concat(result);
-
-                                cb();
-                            });
-
-                        }, () => {
-                            resolve(log_output);
-                        });
-
-                    }).catch(reject);
+                    Logs.find('*', { where: { realm_id: realm_id }, limit: 5 }).then(resolve).catch(reject);
 
                 });
                 var p4 = new Promise((resolve, reject) => {
 
-                    Cameras.selectWhere('*', { realm_id: realm_id }).then(resolve).catch(reject);
+                    Cameras.select('*', { realm_id: realm_id }).then(resolve).catch(reject);
 
                 });
 

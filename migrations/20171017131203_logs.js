@@ -21,6 +21,7 @@ exports.up = function(knex, Promise) {
                     camera_id: 1,
                     vehicle_id: 1,
                     realm_id: 1,
+                    reason: 'Policy decision',
                     created_at: '2017-10-17 01:20:30'
 
                 }, {
@@ -30,7 +31,44 @@ exports.up = function(knex, Promise) {
                     camera_id: 2,
                     vehicle_id: 1,
                     realm_id: 1,
+                    reason: 'Policy decision',
                     created_at: '2017-10-02 06:50:40'
+                }, {
+                    accepted: false,
+                    plate: '444BAB',
+                    file_path: '/client/temp/1506781784792_DSC_0437.JPG',
+                    camera_id: 2,
+                    vehicle_id: 1,
+                    realm_id: 1,
+                    reason: 'Policy decision',
+                    created_at: '2017-09-02 06:50:40'
+                }, {
+                    accepted: true,
+                    plate: '444BAB',
+                    file_path: '/client/temp/1506781784792_DSC_0437.JPG',
+                    camera_id: 2,
+                    vehicle_id: 1,
+                    realm_id: 1,
+                    reason: 'Policy decision',
+                    created_at: '2017-08-02 06:50:40'
+                }, {
+                    accepted: false,
+                    plate: '444BAB',
+                    file_path: '/client/temp/1506781784792_DSC_0437.JPG',
+                    camera_id: 2,
+                    vehicle_id: 1,
+                    realm_id: 1,
+                    reason: 'Default decision',
+                    created_at: '2017-10-01 06:50:40'
+                }, {
+                    accepted: true,
+                    plate: '444BAB',
+                    file_path: '/client/temp/1506781784792_DSC_0437.JPG',
+                    camera_id: 2,
+                    vehicle_id: 1,
+                    realm_id: 1,
+                    reason: 'Default decision',
+                    created_at: '2017-08-02 06:50:40'
                 }]);
         });
 };
