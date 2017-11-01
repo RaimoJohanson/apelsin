@@ -11,7 +11,7 @@ module.exports = function(app) {
     let Cameras = Bookshelf.Model.extend({
         "tableName": TABLE_NAME
     }, {
-        selectWhere: function(col, where) {
+        select: function(col, where) {
             if (!col) col = '*';
             return new Promise((resolve, reject) => {
                 Knex(TABLE_NAME)

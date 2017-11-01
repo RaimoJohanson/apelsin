@@ -49,7 +49,7 @@ module.exports = function(app) {
 
                 var p3 = new Promise((resolve, reject) => {
 
-                    Cameras.selectWhere('id', { realm_id: realm_id }).then(cameras => {
+                    Cameras.select('id', { realm_id: realm_id }).then(cameras => {
 
                         let log_output = [];
                         async.each(cameras, (camera, cb) => {
