@@ -43,6 +43,7 @@ Example: https://www.example.com/v1/realms
 
 
 ### 3. VEHICLES
+---
 Example: https://www.example.com/api/v1/realms/1/vehicles
 Common: /v1/realms/{realm_id}
 
@@ -55,6 +56,7 @@ Common: /v1/realms/{realm_id}
 | DELETE    | /vehicles/{vehicle_id}    | Delete existing vehicle               |                                       |
 
 ### 4. CAMERAS
+---
 Example: https://www.example.com/api/v1/realms/1/cameras
 Common: /v1/realms/{realm_id}
 
@@ -66,6 +68,7 @@ Common: /v1/realms/{realm_id}
 | DELETE    | /cameras/{camera_id}      | Delete existing camera                |                                       |
 
 ### 5. RULES
+---
 Example: https://www.example.com/api/v1/realms/1/rules
 Common: /v1/realms/{realm_id}
 
@@ -80,6 +83,7 @@ Common: /v1/realms/{realm_id}
 Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id'
 
 ### 6. LOGS
+---
 Example: https://www.example.com/api/v1/realms/1/logs
 Common: /v1/realms/{realm_id}
 
