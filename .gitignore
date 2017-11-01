@@ -1,5 +1,6 @@
 fe
 node_modules
+archive
 .env
 src/controller/test.js
 knexfile.js
