@@ -28,7 +28,7 @@ module.exports = function(app) {
 
                 var p1 = new Promise((resolve, reject) => {
 
-                    Vehicles.selectWhere('*', { realm_id: realm_id }).then(resolve).catch(reject);
+                    Vehicles.select('*', { realm_id: realm_id }).then(resolve).catch(reject);
                 });
                 var p2 = new Promise((resolve, reject) => {
 

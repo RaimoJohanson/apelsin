@@ -48,7 +48,8 @@ Common: /v1/realms/{realm_id}
 
 |Method     | Resource                  | Description                           | Keys                                  | Response              
 | ------    | ------                    | ------                                | -----                                 | -----   
-| GET       | /vehicles                 | List of vehicles                      |                                       | [{ ... }]   
+| GET       | /vehicles                 | List of vehicles                      |                                       | [{ ... }]
+| GET       | /vehicles/{vehicle_id}    | Get specified vehicle                 |                                       | [{ ... }]
 | POST      | /vehicles                 | Add new vehicle                       |'plate', 'make', 'model'               | 
 | PUT       | /vehicles/{vehicle_id}    | Modify existing vehicle               |'plate', 'make', 'model'               | 
 | DELETE    | /vehicles/{vehicle_id}    | Delete existing vehicle               |                                       |
