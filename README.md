@@ -13,10 +13,10 @@ Format of the keys are consistent throughout the API.
 | vehicle_id                        | integer                   | 47
 | accepted                          | boolean                   | 1;0;true;false
 | mon, tue, wed, thu, fri, sat, sun | boolean                   | 1;0;true;false
-| begin_date                        | date(string)              | '2017-12-31'
-| end_date                          | date(string)              | '2017-12-31'
-| begin_time                        | time(string)              | '09:59:30'
-| end_time                          | time(string)              | '09:59:30'
+| begin_date                        | string                    | '2017-12-31'
+| end_date                          | string                    | '2017-12-31'
+| begin_time                        | string                    | '09:59:30'
+| end_time                          | string                    | '09:59:30'
 
 
 

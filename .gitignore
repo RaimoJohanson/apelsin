@@ -2,4 +2,5 @@ fe
 node_modules
 .env
 src/controller/test.js
+knexfile.js
 CLIPBOARD.md
