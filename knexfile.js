@@ -6,10 +6,8 @@ module.exports = {
     client: 'mysql',
     connection: {
       host: "localhost",
-      //port: "5432",
-      user: "raimoj",
-      //password: "demo",
-      database: "c9"
+      user: "username",
+      database: "my_db"
     }
   },
 
