@@ -55,15 +55,28 @@ module.exports = function(app) {
 
 
     }); //end of app.get
-    app.get('/test/:rid', Authorize.privileges(), function(req, res) {
+
+    app.get('/imagedeletus', function(req, res) {
+        Logs.clean(1, 1).then(results => {
+            res.json(results);
+        }).catch(errorHandler(res));
 
 
-        Main.dashboard(res.locals.user, req.params.rid).then(data => {
+    }); //end of app.get
 
-            res.render('index_new.html', data);
-        }).catch(err => {
-            res.json(err);
-        });
+    app.get('/knex', function(req, res) {
+        Logs.r3kt(req.query).then(results => {
+            res.json(results);
+        }).catch(errorHandler(res));
+
+
+    }); //end of app.get
+    app.get('/v1/test/realms/:rid', Authorize.privileges(), function(req, res) {
+
+
+
+        res.render('index_new.html');
+
 
     }); //end of app.get
 
@@ -116,17 +129,6 @@ module.exports = function(app) {
             }
         }); // request
 
-        /*
-            UPLOAD image then
-        
-            LOCAL:
-            - store image data to DB
-            - return path
-            OPENALPR:
-            - request with image attachment
-            - resolve results
-        
-            */
 
 
     });
