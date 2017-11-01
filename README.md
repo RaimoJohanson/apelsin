@@ -1,5 +1,5 @@
 
-# AUTOMAATVÄRAV API
+# G8Keeper API
 
 ## Reference document
 
@@ -31,12 +31,12 @@ Format of the keys are consistent throughout the API.
 
 ### 1. AUTHENTICATING & SETTINGS
 ---
- Example: https://www.example.com/api/v1/login
+ Example: https://www.example.com/v1/login
 
-|Method     | Resource              | Description                     | Keys                  | Response
-| ------    | ------                | ------                          | -----                 | -----
-| POST      | /login                | Authenticate and login          | email, password       | {success, message}
-| PUT       | /logout               | Log out and end session         | ...                   | {success, message}
+|Method     | Resource                  | Description                           | Keys                                  | Response
+| ------    | ------                    | ------                                | -----                                 | -----
+| POST      | /login                    | Authenticate and login                | email, password                       | {success, message}
+| PUT       | /logout                   | Log out and end session               | ...                                   | {success, message}
 
 
 
@@ -45,10 +45,10 @@ Format of the keys are consistent throughout the API.
  
 Example: https://www.example.com/v1/realms
 
-|Method     | Resource                  | Description                           | Keys                      | Response              
-| ------    | ------                    | ------                                | -----                     | -----   
-| GET       | /realms                   | List of available realms              |                           | [{}]      
-| GET       | /realms/{realm_id}        | Dashboard                             |                           | {}
+|Method     | Resource                  | Description                           | Keys                                  | Response              
+| ------    | ------                    | ------                                | -----                                 | -----   
+| GET       | /realms                   | List of available realms              |                                       | [{}]      
+| GET       | /realms/{realm_id}        | Dashboard                             |                                       | {}
 
 
 ### 3. VEHICLES
@@ -86,3 +86,12 @@ Common: /v1/realms/{realm_id}
 | DELETE    | /rules/{rule_id}          | Delete existing rule                  |                                       |
 
 Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id'
+
+### 6. LOGS
+Example: https://www.example.com/api/v1/realms/1/logs
+Common: /v1/realms/{realm_id}
+
+|Method     | Resource                  | Description                           | Keys                                  | Response              
+| ------    | ------                    | ------                                | -----                                 | -----   
+| GET       | /logs                     | List of log entries                   |                                       | [{ ... }]  
+| GET       | /logs/{log_id}            | Get specified entry                   |                                       | { ... }
