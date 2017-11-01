@@ -32,7 +32,7 @@ module.exports = function(app) {
     router.get('/realms/:rid/logs/:log_id', Authorize.privileges(), function(req, res) {
 
 
-        Logs.readOne(req.params.rid, req.params.log_id).then(result => {
+        Logs.read(req.params.rid, req.params.log_id).then(result => {
 
             res.json(result);
 

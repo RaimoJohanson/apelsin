@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const moment = require('moment');
-
+const salt = process.env.SALT;
 const USERNAME_FIELD = 'email';
 const PASSWORD_FIELD = 'password'
 
@@ -45,7 +45,7 @@ module.exports = function(app, passport) {
                 if (!user) return done('LOGIN_EMAIL');
 
                 // crypt
-                let salt = 'hk12j3hGG=1';
+
                 let decipher = crypto.createDecipher('aes256', salt);
                 let pw = decipher.update(user.get('password'), 'base64', 'utf8');
                 pw += decipher.final('utf8');

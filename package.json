@@ -11,6 +11,7 @@
     "bookshelf": "^0.10.4",
     "connect-session-knex": "^1.4.0",
     "crypto": "^1.0.1",
+    "dotenv": "^4.0.0",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "fs-extra": "^4.0.2",

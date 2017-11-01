@@ -19,6 +19,8 @@ exports.up = function(knex, Promise) {
                     plate: '444BA8',
                     file_path: '/client/temp/1506611421690_IMG_0478.JPG',
                     camera_id: 1,
+                    vehicle_id: 1,
+                    realm_id: 1,
                     created_at: '2017-10-17 01:20:30'
 
                 }, {
@@ -26,6 +28,8 @@ exports.up = function(knex, Promise) {
                     plate: '444BAB',
                     file_path: '/client/temp/1506781784792_DSC_0437.JPG',
                     camera_id: 2,
+                    vehicle_id: 1,
+                    realm_id: 1,
                     created_at: '2017-10-02 06:50:40'
                 }]);
         });
