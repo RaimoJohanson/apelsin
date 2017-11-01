@@ -17,7 +17,7 @@ module.exports = function(app) {
     //===================
 
     var storage = multer.diskStorage({
-        destination: 'client/temp/', // TESTING IN OWN COMPUTER!
+        destination: 'archive/',
         filename: function(req, file, cb) {
             cb(null, Date.now() + '_' + file.originalname);
         }

@@ -15,7 +15,7 @@ nunjucks.configure('./src/views', {
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 
-app.use(express.static('client'));
+app.use(express.static('archive'));
 app.use(express.static('fe'));
 
 // load application
