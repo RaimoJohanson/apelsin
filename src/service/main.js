@@ -1,5 +1,5 @@
 'use strict';
-const INVALID_CAMERA = 'Invalid camera asset tag';
+
 module.exports = function(app) {
     let async = require('async');
     /*
@@ -88,24 +88,7 @@ module.exports = function(app) {
 
                 //resolve(data);
             });
-        },
-        camera_auth: function(asset_tag) {
-            return new Promise((resolve, reject) => {
-
-                Cameras.selectWhere('*', { asset_tag: asset_tag }).then(result => {
-                    if (!result[0]) return reject(INVALID_CAMERA);
-                    else resolve(result[0]);
-                }).catch(reject);
-
-            });
-        }, //validate
-        log: function(data) {
-            return new Promise((resolve, reject) => {
-                let exp = ['accepted', 'plate', 'file_path', 'camera_id', 'reason', 'realm_id', 'vehicle_id'];
-                console.log('Logging event');
-                Logs.insert(Validate.object(data, exp)).then(resolve).catch(reject);
-            });
-        }, //validate
+        }
     };
 
     return output;

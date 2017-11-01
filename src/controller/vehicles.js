@@ -16,6 +16,14 @@ module.exports = function(app) {
 
         vehicles.read(req.params.rid).then(data => {
             res.json(data);
+        }).catch(errorHandler(res));
+    }); //end of app.get
+
+
+    router.get('/realms/:rid/vehicles/:vid', Authorize.privileges(), function(req, res) {
+
+        vehicles.read(req.params.rid, req.params.vid).then(data => {
+            res.json(data);
             // res.render('vehicles', data);
         }).catch(errorHandler(res));
     }); //end of app.get

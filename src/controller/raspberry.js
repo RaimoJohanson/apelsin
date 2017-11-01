@@ -40,6 +40,8 @@ module.exports = function(app) {
                     //save to logs
                     Logs.create(result).then((response) => {
                         //NEXT ITERATION save to stats!
+
+                        //DELETE IMAGE > 10 entries old.
                         return res.json(result);
 
                     }).catch(errorHandler(res));

@@ -3,13 +3,14 @@ const async = require('async');
 const DEBUG = 0,
     UNAUTHORIZED_CODE = 401,
     FORBIDDEN_CODE = 403,
-    ERROR_CODE = 412;
+    ERROR_CODE = 412,
+    NOT_FOUND_CODE = 404;
 
 module.exports = function(app) {
 
     const Bookshelf = app.get('bookshelf');
     const _ = require("lodash");
-    let Main = require('../service/main')(app);
+    let Cameras = app.locals.model.cameras;
     let Users = app.locals.model.users;
     let Authorize = {};
 
@@ -42,12 +43,13 @@ module.exports = function(app) {
             console.log('Authenticating camera');
             if (!req.params.tag) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <asset_tag>');
 
-            Main.camera_auth(req.params.tag).then(camera => {
-                //camera[0].id
-                next();
+            Cameras.selectWhere('*', { asset_tag: req.params.tag }).then(result => {
+                if (!result[0]) return res.status(NOT_FOUND_CODE).end('Camera not found');
+                else next();
             }).catch(e => {
                 return res.status(FORBIDDEN_CODE).end('Invalid <asset_tag>');
             });
+
 
         };
     };

@@ -1,11 +1,12 @@
 'use strict';
-
+const INVALID_CAMERA = 'Invalid camera asset tag';
 module.exports = function(app) {
 
     let Cameras = app.locals.model.cameras;
     let Validate = require('../helpers/validator');
 
     let output = {
+
         create: function(body, realm_id) {
             return new Promise((resolve, reject) => {
                 body.realm_id = realm_id;

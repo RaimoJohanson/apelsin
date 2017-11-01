@@ -113,7 +113,6 @@ module.exports = function(app) {
 
                                 });
                             });
-
                         };
                         //= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
                         let check_period = (arg) => {

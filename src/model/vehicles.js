@@ -11,27 +11,20 @@ module.exports = function(app) {
     let Vehicles = Bookshelf.Model.extend({
         "tableName": TABLE_NAME
     }, {
-        select: function(col) {
-            if (!col) col = '*';
+        find: function(columns, opts) {
+            let qb = Knex(TABLE_NAME).select(columns);
 
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .then(resolve)
-                    .catch(reject);
-
-            });
+            if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause) });
+            else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
+            if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
+            if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
+            if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
+            if (opts['limit']) qb.limit(opts.limit);
+            if (opts['offset']) qb.offset(opts.offset);
+            return qb;
         },
-        selectWhere: function(col, where) {
-            if (!col) col = '*';
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-
-            });
+        select: function(columns, where) {
+            return Knex(TABLE_NAME).select(columns).where(where);
         },
         insert: function(col) {
             return new Promise((resolve, reject) => {
@@ -52,13 +45,7 @@ module.exports = function(app) {
             });
         },
         delete: function(where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .del()
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+            return Knex(TABLE_NAME).del().where(where);
         }
 
 

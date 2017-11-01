@@ -13,48 +13,33 @@ module.exports = function(app) {
 
 
         create: function(data) {
-            return new Promise((resolve, reject) => {
-                let exp = ['accepted', 'plate', 'file_path', 'camera_id', 'reason', 'realm_id', 'vehicle_id'];
-                console.log('Logging event');
-                Logs.insert(Validate.object(data, exp)).then(resolve).catch(reject);
-            });
+            let exp = ['accepted', 'plate', 'file_path', 'camera_id', 'reason', 'realm_id', 'vehicle_id'];
+            console.log('Logging event');
+            return Logs.insert(Validate.object(data, exp))
         },
-        read: function(realm_id) {
+        read: function(realm_id, log_id) {
+            let where = { realm_id: realm_id };
+            if (log_id) where.id = log_id;
+            return Logs.select('*', where);
+        },
+        clean: function(realm_id, vehicle_id) {
+            let q = {
+                where: { realm_id: realm_id, vehicle_id: vehicle_id },
+                orderBy: ['created_at', 'desc'],
+                limit: 5
+            }
+
             return new Promise((resolve, reject) => {
-                Cameras.selectWhere('id', { realm_id: realm_id }).then(cameras => {
-
-                    let log_output = [];
-                    async.each(cameras, (camera, cb) => {
-                        Logs.select('*', { camera_id: camera.id }).then(result => {
-
-                            log_output = log_output.concat(result);
-
-                            cb();
-                        });
-
-                    }, () => {
-                        resolve(log_output);
-                    });
-
+                Logs.find('*', q).then(results => {
+                    if (results.length >= q.limit) {
+                        let file = results[q.limit - 1].file_path;
+                        resolve(file);
+                    }
+                    else resolve(results);
                 }).catch(reject);
             });
         },
-        readOne: function(realm_id, log_id) {
-            return new Promise((resolve, reject) => {
 
-                Logs.select('*', { id: log_id }).then(result => {
-                    let log = result[0];
-                    if (!log) return resolve('No log found');
-                    if (log.vehicle_id) {
-                        Rules.selectWhere('*', { vehicle_id: log.vehicle_id }).then(rules => {
-                            log.rules = rules;
-                            return resolve(log);
-                        });
-                    }
-                    else resolve(log);
-                });
-            });
-        }
 
     };
 

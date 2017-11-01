@@ -14,7 +14,7 @@ module.exports = function(app) {
 
     router.get('/realms/:rid/statistics', Authorize.privileges(), function(req, res) {
 
-        Statistics.year(req.params.rid, req.query).then(result => {
+        Statistics.generate2(req.params.rid, req.query).then(result => {
 
             res.json(result);
 

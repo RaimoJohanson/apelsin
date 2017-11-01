@@ -6,7 +6,7 @@ const DEBUG = 0,
     ERROR_CODE = 412;
 
 //make it so that it can be accessed from services.
-let exp = {
+const exp = {
     users: {
         create: ['first_name', 'last_name', 'email', 'password', 'role', 'created_by'],
         update: ['first_name', 'last_name', 'email', 'password', 'role', 'updated_by'],
@@ -27,8 +27,9 @@ let exp = {
         update: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id'],
     }
 };
+
 //NEXT ITERATION: also data types must be consistent
-let types = {
+const types = {
     first_name: 'string',
     email: 'string',
     password: 'string',
@@ -41,7 +42,7 @@ let Validate = {};
 Validate.body = function(before, opts) {
     let after = {};
     exp[opts.service][opts.method].forEach(e => {
-        if (before[e] != undefined) after[e] = before[e];
+        if (before[e] != undefined || typeof(before[e]) === types[e]) after[e] = before[e];
     });
 
     return after;
@@ -56,5 +57,13 @@ Validate.object = function(before, expectation) {
 
     return after;
 }; //validate.body
+
+Validate.period = function(input) {
+    var month = /^(\d{4})\-(\d{2})$/;
+    var year = /^(\d{4})$/;
+    var date = /^(\d{4})\-(\d{2})\-(\d{2})$/;
+
+    let match = year.exec(input);
+};
 
 module.exports = Validate;

@@ -14,6 +14,25 @@ module.exports = function(app) {
             return this.save(params);
         },
     }, {
+        find: function(columns, opts) {
+            let qb = Knex(TABLE_NAME).select(columns);;
+
+            if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause[0], clause[1], clause[2]) });
+            else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
+
+            if (opts['count'] && typeof(opts['count'] === 'string')) qb.count(opts.count);
+            else if (opts['count'] && Array.isArray(opts['count'])) opts['count'].forEach(clause => { qb.count(clause) });
+
+            if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
+            if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
+            if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
+            if (opts['limit']) qb.limit(opts.limit);
+            if (opts['offset']) qb.offset(opts.offset);
+            return qb;
+        },
+        select: function(columns, where) {
+            return Knex(TABLE_NAME).select(columns).where(where);
+        },
         insert: function(data) {
             return new Promise((resolve, reject) => {
                 Knex(TABLE_NAME)
@@ -24,23 +43,9 @@ module.exports = function(app) {
             });
         },
         update: function(data, where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .update(data)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+            return Knex(TABLE_NAME).update(data).where(where);
         },
-        select: function(data, where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(data)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
-        },
+
         delete: function(where) {
             return new Promise((resolve, reject) => {
                 Knex(TABLE_NAME)
