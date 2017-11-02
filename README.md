@@ -76,7 +76,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
 
 <dl>
   <dt>Basics</dt>
-  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. Sellisel juhul tuleb <em>reason</em>'iks "Default decision".
+  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. Sellisel juhul tuleb põhjenduseks ```reason: 'Default decision'``` .
   Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
   </dd>
   <dt>Hierarchy</dt>
@@ -85,7 +85,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
   2. Kuupäevaline piirang
   3. Nädalapäevaline piirang
 
-Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellisel juhul ```accepted=1``` muudab vaid läbi laskmise põhjenduse ära "Policy decision"iks.
+Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellisel juhul ```accepted:1``` muudab vaid läbi laskmise põhjenduse ära: ```reason: 'Policy decision'```.
   </dd>
 </dl>
 
