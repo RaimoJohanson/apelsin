@@ -31,7 +31,7 @@ Format of the keys are consistent throughout the API.
 
 
 
-### 2. MAIN:
+### 2. DASHBOARD:
 ---
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
 Example: https://www.example.com/v1/realms
@@ -57,6 +57,7 @@ Common: /v1/realms/{realm_id}
 
 ### 4. CAMERAS
 ---
+![cameras-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/cameras.png)
 Example: https://www.example.com/api/v1/realms/1/cameras
 Common: /v1/realms/{realm_id}
 
