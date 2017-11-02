@@ -77,6 +77,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
 <dl>
   <dt>Basics</dt>
   <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. Sellisel juhul tuleb põhjenduseks: ```reason: 'Default decision'```.
+  
   Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
   </dd>
   <dt>Hierarchy</dt>
