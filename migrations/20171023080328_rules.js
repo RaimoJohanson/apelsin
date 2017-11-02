@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
             table.date('end_date');
             table.time('begin_time');
             table.time('end_time');
-            table.integer('vehicle_id').unsigned().references('vehicles.id');
+            table.string('plate');
             table.integer('realm_id').unsigned().references('realms.id');
         }).then(() => {
 
@@ -28,7 +28,7 @@ exports.up = function(knex, Promise) {
                         end_date: '2017-12-23',
                         begin_time: '17:00:00',
                         end_time: '17:00:00',
-                        vehicle_id: 1,
+                        plate: '444BAB',
                         realm_id: 1
                     }, {
                         accepted: 1,
@@ -36,17 +36,29 @@ exports.up = function(knex, Promise) {
                         end_date: '2017-12-23',
                         begin_time: '17:00:00',
                         end_time: '17:00:00',
-                        vehicle_id: 2,
+                        plate: '444BAB',
                         realm_id: 1
                     },
                     {
                         accepted: 1,
+                        begin_time: '00:00:00',
+                        end_time: '01:00:00',
+                        plate: '972APC',
+                        realm_id: 2
+                    },
+                    {
+                        accepted: 0,
                         begin_date: '2017-10-23',
                         end_date: '2017-12-23',
-                        begin_time: '17:00:00',
-                        end_time: '17:00:00',
-                        vehicle_id: 1,
-                        realm_id: 2
+                        plate: '972APC',
+                        realm_id: 1
+                    },
+                    {
+                        accepted: 0,
+                        begin_time: '23:00:00',
+                        end_time: '01:00:00',
+                        plate: '456RRP',
+                        realm_id: 1
                     }
                 ]);
         });

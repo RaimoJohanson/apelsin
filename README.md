@@ -81,7 +81,9 @@ Example: https://www.example.com/api/v1/realms/1/rules
 
 <dl>
   <dt>Basics</dt>
-  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. Sellisel juhul tuleb põhjenduseks:```reason: 'Default decision'```.
+  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
+  Sellisel juhul tuleb põhjenduseks:```reason: 'Default decision'```
+  Reegleid otsitakse tuvastatud numbrimärgi järgi.
   
   Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
   </dd>
@@ -104,7 +106,7 @@ Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellise
 | PUT       | /rules/{rule_id}          | Modify existing rule                  |                                       | 
 | DELETE    | /rules/{rule_id}          | Delete existing rule                  |                                       |
 
-Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id'
+Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
 
 ### 6. LOGS
 ---

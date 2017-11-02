@@ -78,7 +78,7 @@ module.exports = function(app) {
                 //NEXT ITERATION: remove vehicle_id from query. Rule could apply to all vehicles!
                 //ALSO: make rule checking process modular for more flexibility. (rule hierarhy implementation) 
 
-                Rules.selectWhere('*', { realm_id: data.realm_id, vehicle_id: data.vehicle_id }).then(rules => {
+                Rules.selectWhere('*', { realm_id: data.realm_id, plate: data.plate }).then(rules => {
                     if (!rules.length) {
                         console.log('No rules');
                         data.reason = DEFAULT_REASON;
