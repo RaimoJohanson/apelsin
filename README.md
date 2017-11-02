@@ -84,9 +84,10 @@ Example: https://www.example.com/api/v1/realms/1/rules
   <dd>
   Reegleid otsitakse tuvastatud numbrimärgi järgi.
   
-  Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
+  Niipea kui tehakse mingi reegel, mis kas keelab või lubab sõidukil väravat läbida, hakkab reeglid kehtima. 
+  Ehk kui sõidukil on ainult üks reegel, mis lubab sel väravast läbi tulla, siis väljaspool reegli kehtivust ei lubata seda teha.
   Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
-  Sellisel juhul tuleb põjenduseks: ```reason: 'Default decision'```.
+  Reegli puudumisel tuleb põjenduseks: ```reason: 'Default decision'```.
   </dd>
   <dt>Hierarchy</dt>
   <dd>
