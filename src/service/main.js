@@ -1,24 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-    let async = require('async');
-    /*
-  let realm = require('../service/user')(app);
-  let taskService = require('../service/task')(app);
-  let monthService = require('../service/month')(app);
-
-*/
-    let Validate = require('../helpers/validator');
-    let Realms = app.locals.model.realms;
-    let UsersRealms = app.locals.model.users_realms;
-    let Vehicles = app.locals.model.vehicles;
-    let Cameras = app.locals.model.cameras;
-    let Logs = app.locals.model.logs;
+    const Validate = require('../helpers/validator');
+    const Statistics = require('../service/statistics')(app);
+    const Realms = app.locals.model.realms;
+    const UsersRealms = app.locals.model.users_realms;
+    const Vehicles = app.locals.model.vehicles;
+    const Cameras = app.locals.model.cameras;
+    const Logs = app.locals.model.logs;
 
     let output = {
         landing: function(ids) {
             return new Promise((resolve, reject) => {
-                Realms.userRealms(['id', 'name'], ids).then(resolve).catch(reject);
+                Realms.userRealms(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], ids).then(resolve).catch(reject);
             });
         },
         dashboard: function(user_id, realm_id) {
@@ -49,7 +43,7 @@ module.exports = function(app) {
 
                 var p3 = new Promise((resolve, reject) => {
 
-                    Logs.find('*', { where: { realm_id: realm_id }, limit: 5 }).then(resolve).catch(reject);
+                    Logs.find(['accepted', 'plate', 'reason', 'created_at'], { where: { realm_id: realm_id }, limit: 5 }).then(resolve).catch(reject);
 
                 });
                 var p4 = new Promise((resolve, reject) => {
@@ -57,14 +51,26 @@ module.exports = function(app) {
                     Cameras.select('*', { realm_id: realm_id }).then(resolve).catch(reject);
 
                 });
+                var p5 = new Promise((resolve, reject) => {
 
-                Promise.all([p1, p2, p3, p4]).then(values => {
+                    // Statistics.day(realm_id).then(resolve).catch(reject);
+                    resolve({
+                        total: 12,
+                        accepted: 8,
+                        unaccepted: 3,
+                        unfamiliar: 1
+                    });
+
+                });
+
+                Promise.all([p1, p2, p3, p4, p5]).then(values => {
 
                     let data = {
-                        vehicles: values[0],
-                        realm: values[1],
-                        logs: values[2],
-                        cameras: values[3]
+                        //vehicles: values[0],
+                        //realm: values[1],
+                        interactions: values[2],
+                        cameras: values[3],
+                        statistics: values[4]
                     };
 
                     resolve(data);

@@ -45,6 +45,7 @@ Example: https://www.example.com/v1/realms
 
 ### 3. VEHICLES
 ---
+![vehicles-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/vehicles.png)
 Example: https://www.example.com/api/v1/realms/1/vehicles
 Common: /v1/realms/{realm_id}
 
