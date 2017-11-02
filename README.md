@@ -71,6 +71,7 @@ Common: /v1/realms/{realm_id}
 
 ### 5. RULES
 ---
+![rules-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/rules.png)
 Example: https://www.example.com/api/v1/realms/1/rules
 Common: /v1/realms/{realm_id}
 
@@ -86,6 +87,7 @@ Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date',
 
 ### 6. LOGS
 ---
+![logs-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/logs.png)
 Example: https://www.example.com/api/v1/realms/1/logs
 Common: /v1/realms/{realm_id}
 
