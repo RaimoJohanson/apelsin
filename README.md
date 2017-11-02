@@ -73,7 +73,22 @@ Common: /v1/realms/{realm_id}
 ---
 ![rules-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/rules.png)
 Example: https://www.example.com/api/v1/realms/1/rules
-Common: /v1/realms/{realm_id}
+
+<dl>
+  <dt>Basics</dt>
+  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. Sellisel juhul tuleb <em>reason</em>'iks "Default decision".
+  Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
+  </dd>
+  <dt>Hierarchy</dt>
+  <dd>
+  1. Kellajaline piirang
+  2. Kuupäevaline piirang
+  3. Nädalapäevaline piirang
+
+Kui üldse pole piiranguid seatud, siis kehtib <em>accepted</em> väärtus. Sellisel juhul ```accepted=1``` muudab vaid läbi laskmise põhjenduse ära "Policy decision"iks
+  </dd>
+</dl>
+
 
 |Method     | Resource                  | Description                           | Keys                                  | Response              
 | ------    | ------                    | ------                                | -----                                 | -----   
