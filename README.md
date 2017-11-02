@@ -33,7 +33,7 @@ Format of the keys are consistent throughout the API.
 
 ### 2. MAIN:
 ---
- 
+![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
 Example: https://www.example.com/v1/realms
 
 |Method     | Resource                  | Description                           | Keys                                  | Response              
