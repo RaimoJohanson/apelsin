@@ -6,8 +6,8 @@ module.exports = {
     client: 'mysql',
     connection: {
       host: "localhost",
-      user: "username",
-      database: "my_db"
+      user: "raimoj",
+      database: "c9"
     }
   },
 
