@@ -81,13 +81,12 @@ Example: https://www.example.com/api/v1/realms/1/rules
 
 <dl>
   <dt>Basics</dt>
-  <dd>Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
-  Sellisel juhul tuleb põhjenduseks:```reason: 'Default decision'```
+  <dd>
   Reegleid otsitakse tuvastatud numbrimärgi järgi.
   
   Niipea kui tehakse mingi reegel, mis kas lubab või keelab sõidukil väravast läbi sõita, siis muutub see kõige olulisemaks.
-  
-  Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellisel juhul ```accepted:1``` muudab vaid läbi laskmise põhjenduse ära: ```reason: 'Policy decision'```.
+  Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
+  Sellisel juhul tuleb põjenduseks: ```reason: 'Default decision'```.
   </dd>
   <dt>Hierarchy</dt>
   <dd>
