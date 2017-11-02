@@ -31,8 +31,9 @@ Format of the keys are consistent throughout the API.
 
 
 
-### 2. DASHBOARD:
+### 2. MAIN:
 ---
+![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
 Example: https://www.example.com/v1/realms
 
