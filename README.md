@@ -2,6 +2,10 @@
 # G8Keeper API
 
 ## Reference document
+### To-do
+1. Rules independent from vehicles
+2. User settings / password reset
+3. Realm settings: adding users/admins
 
 ### KEYS & VALUES
 Format of the keys are consistent throughout the API.
