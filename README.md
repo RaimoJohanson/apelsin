@@ -85,7 +85,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
   2. Kuupäevaline piirang
   3. Nädalapäevaline piirang
 
-Kui üldse pole piiranguid seatud, siis kehtib <em>accepted</em> väärtus. Sellisel juhul ```accepted=1``` muudab vaid läbi laskmise põhjenduse ära "Policy decision"iks
+Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellisel juhul ```accepted=1``` muudab vaid läbi laskmise põhjenduse ära "Policy decision"iks.
   </dd>
 </dl>
 
