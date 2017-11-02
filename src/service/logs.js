@@ -13,9 +13,9 @@ module.exports = function(app) {
 
 
         create: function(data) {
-            let exp = ['accepted', 'plate', 'file_path', 'camera_id', 'reason', 'realm_id', 'vehicle_id'];
+            let exp = ['accepted', 'plate', 'file_name', 'camera_id', 'reason', 'realm_id', 'vehicle_id'];
             console.log('Logging event');
-            return Logs.insert(Validate.object(data, exp))
+            return Logs.insert(Validate.object(data, exp));
         },
         read: function(realm_id, log_id) {
             let where = { realm_id: realm_id };
@@ -28,11 +28,11 @@ module.exports = function(app) {
                 orderBy: ['created_at', 'desc'],
                 limit: 5
             }
-
+            //Untested
             return new Promise((resolve, reject) => {
                 Logs.find('*', q).then(results => {
                     if (results.length >= q.limit) {
-                        let file = results[q.limit - 1].file_path;
+                        let file = results[q.limit - 1].file_name;
                         resolve(file);
                     }
                     else resolve(results);

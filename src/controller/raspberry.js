@@ -34,7 +34,7 @@ module.exports = function(app) {
         Openalpr.connect(req.file.path).then(data => {
 
             //check licence plate with DB. Declare status.
-            Rules.checkPlate(data.plate, req.params.tag, req.file.path).then(plate_check => {
+            Rules.checkPlate(data.plate, req.params.tag, req.file.name).then(plate_check => {
 
                 Rules.checkPolicy(plate_check).then(result => {
                     //save to logs

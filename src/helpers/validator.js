@@ -20,7 +20,7 @@ const exp = {
         update: ['asset_tag', 'alias', 'ip_address'],
     },
     logs: {
-        create: ['accepted', 'plate', 'file_path', 'camera_id', 'reason', 'realm_id', 'vehicle_id'],
+        create: ['accepted', 'plate', 'file_name', 'camera_id', 'reason', 'realm_id', 'vehicle_id'],
     },
     rules: {
         create: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id', 'realm_id'],
@@ -34,15 +34,16 @@ const types = {
     email: 'string',
     password: 'string',
     accepted: 'boolean',
-    realm_id: 'integer'
+    realm_id: 'number'
 };
 //=====================================================================================
 
 let Validate = {};
 Validate.body = function(before, opts) {
+    //untested
     let after = {};
     exp[opts.service][opts.method].forEach(e => {
-        if (before[e] != undefined || typeof(before[e]) === types[e]) after[e] = before[e];
+        if (before[e] != undefined && typeof(before[e]) === types[e]) after[e] = before[e];
     });
 
     return after;

@@ -35,17 +35,18 @@ module.exports = function(app) {
         deleteVehicle: function(realm_id, vehicle_id) {
             return Rules.delete({ realm_id: realm_id, vehicle_id: vehicle_id });
         },
-        checkPlate: function(plate, asset_tag, file_path) {
+        checkPlate: function(plate, asset_tag, file_name) {
             return new Promise((resolve, reject) => {
 
-                Cameras.selectWhere('*', { asset_tag: asset_tag }).then(camera => {
-
-                    Vehicles.selectWhere('*', { plate: plate, realm_id: camera[0].realm_id }).then(vehicle => {
+                Cameras.select('*', { asset_tag: asset_tag }).then(camera => {
+                    console.log(camera);
+                    Vehicles.select('*', { plate: plate, realm_id: camera[0].realm_id }).then(vehicle => {
+                        console.log(vehicle);
                         let decide = {
                             plate: plate,
                             camera_id: camera[0].id,
                             realm_id: camera[0].realm_id,
-                            file_path: file_path
+                            file_name: file_name
                         };
 
                         if (!vehicle[0]) {
@@ -73,7 +74,7 @@ module.exports = function(app) {
                 console.log(today);
 
                 //MAKE IT SELECTABLE?
-                const default_accepted = 1;
+                let default_accepted = 1;
 
                 //NEXT ITERATION: remove vehicle_id from query. Rule could apply to all vehicles!
                 //ALSO: make rule checking process modular for more flexibility. (rule hierarhy implementation) 
