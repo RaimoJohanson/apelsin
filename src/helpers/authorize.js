@@ -14,7 +14,7 @@ module.exports = function(app) {
     let Users = app.locals.model.users;
     let Authorize = {};
 
-    Authorize.privileges = function(key) {
+    Authorize.realm = function(key) {
 
         return function(req, res, next) {
 
@@ -43,7 +43,7 @@ module.exports = function(app) {
             console.log('Authenticating camera');
             if (!req.params.tag) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <asset_tag>');
 
-            Cameras.selectWhere('*', { asset_tag: req.params.tag }).then(result => {
+            Cameras.select('*', { asset_tag: req.params.tag }).then(result => {
                 if (!result[0]) return res.status(NOT_FOUND_CODE).end('Camera not found');
                 else next();
             }).catch(e => {
@@ -71,7 +71,7 @@ module.exports = function(app) {
                 else res.status(FORBIDDEN_CODE).end('Forbidden');
             }
 
-            Users.selectWhere('role', { id: res.locals.user.id }).then(account_role => {
+            Users.select('role', { id: res.locals.user.id }).then(account_role => {
 
                 let user = account_role[0];
 

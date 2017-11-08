@@ -13,7 +13,7 @@ module.exports = function(app, req, res, next) {
     //_realm_ = { realm_id : ROLE}
 
     res.locals.user._realms_ = {};
-    UsersRealms.SelectWhere('*', { user_id: res.locals.user.id }).then(results => {
+    UsersRealms.select('*', { user_id: res.locals.user.id }).then(results => {
 
         if (!results) res.json('Error. No realms.');
         res.locals.user._rids_ = [];

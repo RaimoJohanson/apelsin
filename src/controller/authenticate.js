@@ -3,23 +3,8 @@ const router = require('express').Router();
 
 module.exports = function(app) {
 
-
-    // const msg = require('../config/messages')(app);
     const passport = app.get('passport');
-
-    function errorHandler(res) {
-        var msg = {
-            success: false
-        };
-        return function(err) {
-
-            if (err.status_code) return res.status(err.status_code).json(err.message);
-            app.locals.logger.error(err);
-
-            msg.message = err;
-            res.status(412).json(msg);
-        };
-    }
+    const errorHandler = require('../helpers/errorhandler');
 
     //==============================================================================
     router.post('/login', function(req, res, next) {
@@ -33,8 +18,6 @@ module.exports = function(app) {
         passport.authenticate('local-login', function(err, user, info) {
 
             if (err) {
-                console.log('authenticate.js -> passport.authenticate error');
-                console.log(err);
                 return res.json({
                     success: false,
                     message: err
@@ -60,7 +43,6 @@ module.exports = function(app) {
         })(req, res, next);
     });
 
-    //==============================================================================
     router.put('/logout', function(req, res) {
 
         console.log('| User: %s logged out', req.session.passport.user);
@@ -72,8 +54,6 @@ module.exports = function(app) {
         });
 
     }); //end of app.get
-    //==============================================================================
-
 
     app.use(ROUTE, router);
 };

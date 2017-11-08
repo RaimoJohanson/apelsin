@@ -18,7 +18,7 @@ module.exports = function(app) {
     //===================
 
 
-    router.get('/realms/:rid/rules', Authorize.privileges(), function(req, res, next) {
+    router.get('/realms/:rid/rules', Authorize.realm(), function(req, res, next) {
 
         Rules.all(req.params.rid).then(result => {
             res.json(result);
@@ -26,7 +26,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.get('/realms/:rid/rules/:rule_id', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/rules/:rule_id', Authorize.realm(), function(req, res) {
 
         Rules.read(req.params.rid, req.params.rule_id).then(result => {
             res.json(result);
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.post('/realms/:rid/rules', Authorize.privileges('ADMIN'), function(req, res) {
+    router.post('/realms/:rid/rules', Authorize.realm('ADMIN'), function(req, res) {
         req.body.created_by = res.locals.user.id;
 
         Rules.create(req.body, req.params.rid).then(result => {
@@ -43,7 +43,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.put('/realms/:rid/rules/:rule_id', Authorize.privileges('ADMIN'), function(req, res) {
+    router.put('/realms/:rid/rules/:rule_id', Authorize.realm('ADMIN'), function(req, res) {
         req.body.updated_by = res.locals.user.id;
 
         Rules.update(req.body, req.params.rid, req.params.rule_id).then(result => {
@@ -52,7 +52,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.delete('/realms/:rid/rules/:rule_id', Authorize.privileges('ADMIN'), function(req, res) {
+    router.delete('/realms/:rid/rules/:rule_id', Authorize.realm('ADMIN'), function(req, res) {
 
         Rules.delete(req.params.user_id).then(result => {
             res.json(result);

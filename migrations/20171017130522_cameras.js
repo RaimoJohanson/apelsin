@@ -5,7 +5,8 @@ exports.up = function(knex, Promise) {
             table.string('asset_tag').notNullable();
             table.string('alias');
             table.string('ip_address');
-            table.integer('realm_id').unsigned().references('realms.id');
+            table.integer('realm_id').unsigned();
+            table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
         })
         .then(() => {
 

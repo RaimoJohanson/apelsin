@@ -12,7 +12,7 @@ module.exports = function(app) {
 
     let vehicles = require('../service/vehicles')(app);
 
-    router.get('/realms/:rid/vehicles', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/vehicles', Authorize.realm(), function(req, res) {
 
         vehicles.read(req.params.rid).then(data => {
             res.json(data);
@@ -20,7 +20,7 @@ module.exports = function(app) {
     }); //end of app.get
 
 
-    router.get('/realms/:rid/vehicles/:vid', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/vehicles/:vid', Authorize.realm(), function(req, res) {
 
         vehicles.read(req.params.rid, req.params.vid).then(data => {
             res.json(data);
@@ -28,7 +28,7 @@ module.exports = function(app) {
         }).catch(errorHandler(res));
     }); //end of app.get
 
-    router.post('/realms/:rid/vehicles', Authorize.privileges(ADMIN), function(req, res) {
+    router.post('/realms/:rid/vehicles', Authorize.realm(ADMIN), function(req, res) {
 
         vehicles.create(req.body, req.params.rid).then(result => {
 
@@ -38,7 +38,7 @@ module.exports = function(app) {
 
     }); //end of endpoint
 
-    router.put('/realms/:rid/vehicles/:vid', Authorize.privileges(ADMIN), function(req, res) {
+    router.put('/realms/:rid/vehicles/:vid', Authorize.realm(ADMIN), function(req, res) {
 
         vehicles.update(req.body, req.params.vid, req.params.rid).then(result => {
             res.json(result);
@@ -46,7 +46,7 @@ module.exports = function(app) {
 
     }); //end of endpoint
 
-    router.delete('/realms/:rid/vehicles/:vehicle_id', Authorize.privileges(ADMIN), function(req, res) {
+    router.delete('/realms/:rid/vehicles/:vehicle_id', Authorize.realm(ADMIN), function(req, res) {
 
         vehicles.delete(req.params.vehicle_id, req.params.rid).then(result => {
             res.json(result);

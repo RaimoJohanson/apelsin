@@ -9,21 +9,20 @@ module.exports = function(app) {
     var args = '&recognize_vehicle=0&country=eu&return_image=0&topn=10';
     var pub_temp = '/client/temp/';
 
-    let Realms = app.locals.model.realms;
-    let UsersRealms = app.locals.model.users_realms;
-    let Vehicles = app.locals.model.vehicles;
+    const Realms = app.locals.model.realms;
+    const UsersRealms = app.locals.model.users_realms;
+    const Vehicles = app.locals.model.vehicles;
 
 
-    let output = {
+    var output = {
 
         connect: function(file_path) {
             return new Promise((resolve, reject) => {
-                var payload = {
-                    image: fs.createReadStream(file_path),
-                };
                 request.post({
                     url: url + secret + args,
-                    formData: payload
+                    formData: {
+                        image: fs.createReadStream(file_path),
+                    }
                 }, (err, resp, data) => {
                     if (err) {
                         console.log('OpenALPR error:', err);
@@ -44,9 +43,12 @@ module.exports = function(app) {
                                 plate: plate,
                                 //confidence: confidence
                             };
-                            resolve(formatted_data);
+                            return resolve(formatted_data);
                         }
-                        else reject('Image could not be processed. Error: 0178');
+                        else return resolve({
+                            plate: null,
+                            reason: 'Licence plate not detected'
+                        });
 
                     }
                 }); //request

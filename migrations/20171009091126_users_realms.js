@@ -2,8 +2,10 @@ exports.up = function(knex, Promise) {
     return knex.schema
         .createTable('users_realms', function(table) {
             table.increments('id').primary().unique();
-            table.integer('user_id').unsigned().references('users.id');
-            table.integer('realm_id').unsigned().references('realms.id');
+            table.integer('user_id').unsigned();
+            table.foreign('user_id').onDelete('CASCADE').references('users.id');
+            table.integer('realm_id').unsigned();
+            table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
             table.enum('role', ['ADMIN', 'USER']);
         })
         .then(() => {

@@ -33,7 +33,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.get('/realms/:rid', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid', Authorize.realm(), function(req, res) {
 
 
         Main.dashboard(res.locals.user.id, req.params.rid).then(data => {

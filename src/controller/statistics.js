@@ -12,7 +12,7 @@ module.exports = function(app) {
     //===================
 
 
-    router.get('/realms/:rid/statistics', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/statistics', Authorize.realm(), function(req, res) {
 
         Statistics.generate2(req.params.rid, req.query).then(result => {
 

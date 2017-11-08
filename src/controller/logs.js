@@ -18,7 +18,7 @@ module.exports = function(app) {
     //===================
 
 
-    router.get('/realms/:rid/logs', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/logs', Authorize.realm(), function(req, res) {
 
 
         Logs.read(req.params.rid).then(result => {
@@ -29,7 +29,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.get('/realms/:rid/logs/:log_id', Authorize.privileges(), function(req, res) {
+    router.get('/realms/:rid/logs/:log_id', Authorize.realm(), function(req, res) {
 
 
         Logs.read(req.params.rid, req.params.log_id).then(result => {

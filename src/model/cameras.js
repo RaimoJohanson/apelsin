@@ -11,44 +11,17 @@ module.exports = function(app) {
     let Cameras = Bookshelf.Model.extend({
         "tableName": TABLE_NAME
     }, {
-        select: function(col, where) {
-            if (!col) col = '*';
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-
-            });
+        select: function(data, where) {
+            return Knex(TABLE_NAME).select(data).where(where);
         },
-        insert: function(col) {
-
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .insert(col)
-                    .returning('id')
-                    .then(resolve)
-                    .catch(reject);
-            });
+        insert: function(data) {
+            return Knex(TABLE_NAME).insert(data).returning('id');
         },
-        update: function(col, where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .update(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+        update: function(data, where) {
+            return Knex(TABLE_NAME).update(data).where(where);
         },
         delete: function(where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .del()
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+            return Knex(TABLE_NAME).del().where(where);
         }
 
 

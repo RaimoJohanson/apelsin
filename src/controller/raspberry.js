@@ -32,14 +32,12 @@ module.exports = function(app) {
         console.log(req.file);
 
         Openalpr.connect(req.file.path).then(data => {
-
             //check licence plate with DB. Declare status.
             Rules.checkPlate(data.plate, req.params.tag, req.file.name).then(plate_check => {
 
                 Rules.checkPolicy(plate_check).then(result => {
                     //save to logs
                     Logs.create(result).then((response) => {
-                        //NEXT ITERATION save to stats!
 
                         //DELETE IMAGE > 10 entries old.
                         return res.json(result);

@@ -15,7 +15,8 @@ exports.up = function(knex, Promise) {
             table.time('begin_time');
             table.time('end_time');
             table.string('plate');
-            table.integer('realm_id').unsigned().references('realms.id');
+            table.integer('realm_id').unsigned();
+            table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
         }).then(() => {
 
             return knex('rules')

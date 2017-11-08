@@ -15,7 +15,7 @@ module.exports = function(app) {
     let output = {
 
         all: function(realm_id) {
-            return Rules.selectWhere('*', { realm_id: realm_id });
+            return Rules.select('*', { realm_id: realm_id });
         },
         create: function(data, realm_id) {
             data.realm_id = realm_id;
@@ -23,7 +23,7 @@ module.exports = function(app) {
             return Rules.insert(Validate.object(data, exp));
         },
         read: function(realm_id, rule_id) {
-            return Rules.selectWhere('*', { realm_id: realm_id, id: rule_id });
+            return Rules.select('*', { realm_id: realm_id, id: rule_id });
         },
         update: function(data, realm_id, rule_id) {
             let exp = ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'vehicle_id'];
@@ -50,7 +50,7 @@ module.exports = function(app) {
                         };
 
                         if (!vehicle[0]) {
-                            decide.accepted = 0;
+                            //decide.accepted = 0;
                             decide.reason = 'Licence plate not in database';
                             return resolve(decide);
                         }
@@ -65,7 +65,8 @@ module.exports = function(app) {
         }, //checkPlate
         checkPolicy: function(data) {
             return new Promise((resolve, reject) => {
-                if (data.accepted === 0) return resolve(data);
+                //if (data.accepted === 0) return resolve(data);
+
                 let today = {
                     weekday: moment().day(),
                     time: moment().format("HH:mm:ss"),
@@ -74,15 +75,18 @@ module.exports = function(app) {
                 console.log(today);
 
                 //MAKE IT SELECTABLE?
+
                 let default_accepted = 1;
 
+                //If vehicle not in database, check for rule anyway
+                if (!data.vehicle_id) default_accepted = 0;
                 //NEXT ITERATION: remove vehicle_id from query. Rule could apply to all vehicles!
                 //ALSO: make rule checking process modular for more flexibility. (rule hierarhy implementation) 
 
-                Rules.selectWhere('*', { realm_id: data.realm_id, plate: data.plate }).then(rules => {
+                Rules.select('*', { realm_id: data.realm_id, plate: data.plate }).then(rules => {
                     if (!rules.length) {
                         console.log('No rules');
-                        data.reason = DEFAULT_REASON;
+                        if (!data.reason) data.reason = DEFAULT_REASON;
                         data.accepted = default_accepted;
                         return resolve(data);
                     }

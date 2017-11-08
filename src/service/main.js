@@ -12,7 +12,7 @@ module.exports = function(app) {
     let output = {
         landing: function(ids) {
             return new Promise((resolve, reject) => {
-                Realms.userRealms(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], ids).then(resolve).catch(reject);
+                Realms.find(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], { whereIn: ['id', ids] }).then(resolve).catch(reject);
             });
         },
         dashboard: function(user_id, realm_id) {
@@ -26,19 +26,7 @@ module.exports = function(app) {
                 });
                 var p2 = new Promise((resolve, reject) => {
 
-                    Realms.selectWhere('*', { id: realm_id }).then(result => {
-                        let r = result[0];
-                        let realm = {
-                            id: r.id,
-                            name: r.name,
-                            country: r.country,
-                            region: r.region,
-                            city: r.city,
-                            street: r.street,
-                            street_number: r.street_number
-                        };
-                        resolve(realm);
-                    }).catch(reject);
+                    Realms.select(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], { id: realm_id }).then(resolve).catch(reject);
                 });
 
                 var p3 = new Promise((resolve, reject) => {
@@ -48,7 +36,7 @@ module.exports = function(app) {
                 });
                 var p4 = new Promise((resolve, reject) => {
 
-                    Cameras.select('*', { realm_id: realm_id }).then(resolve).catch(reject);
+                    Cameras.select(['id', 'asset_tag', 'alias', 'ip_address'], { realm_id: realm_id }).then(resolve).catch(reject);
 
                 });
                 var p5 = new Promise((resolve, reject) => {

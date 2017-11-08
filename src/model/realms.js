@@ -11,70 +11,39 @@ module.exports = function(app) {
     let Realms = Bookshelf.Model.extend({
         "tableName": TABLE_NAME
     }, {
-        "select": function(col) {
-            if (!col) col = '*';
-
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .then(resolve)
-                    .catch(reject);
-
-            });
-        },
-        "userRealms": function(col, ids) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .whereIn('id', ids)
-                    .then(resolve)
-                    .catch(reject);
-
+        find: function(columns, opts) {
+            let qb = Knex(TABLE_NAME);
+            if (opts.related) opts.related.forEach(relation => {
+                qb.leftJoin(relation.target_table, TABLE_NAME + '.' + relation.column, relation.target_table + '.' + relation.target_column);
             });
 
-        },
-        "selectWhere": function(col, where) {
-            if (!col) col = '*';
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .select(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
+            if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause[0], clause[1], clause[2]) });
+            else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
 
-            });
+            if (opts['count'] && typeof(opts['count'] === 'string')) qb.count(opts.count);
+            else if (opts['count'] && Array.isArray(opts['count'])) opts['count'].forEach(clause => { qb.count(clause) });
+
+            if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
+            if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
+            if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
+            if (opts['limit']) qb.limit(opts.limit);
+            if (opts['offset']) qb.offset(opts.offset);
+
+            qb.select(columns);
+            return qb;
         },
-        "insert": function(col, admin_id) {
-            col.created_by = admin_id || null;
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .insert(col)
-                    .returning('id')
-                    .then(resolve)
-                    .catch(reject);
-            });
+        select: function(columns, where) {
+            return Knex(TABLE_NAME).select(columns).where(where);
         },
-        "update": function(col, where, admin_id) {
-            col.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .update(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+        insert: function(columns) {
+            return Knex(TABLE_NAME).insert(columns).returning('id');
         },
-        "delete": function(where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .del()
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+        update: function(columns, where) {
+            return Knex(TABLE_NAME).update(columns).where(where);
+        },
+        delete: function(where) {
+            return Knex(TABLE_NAME).del().where(where);
         }
-
-
     });
 
     return Bookshelf.model(TABLE_NAME, Realms);

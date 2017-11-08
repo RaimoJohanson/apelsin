@@ -6,9 +6,13 @@ exports.up = function(knex, Promise) {
             table.string('plate');
             table.string('file_name');
             table.string('reason');
-            table.integer('vehicle_id').unsigned().references('vehicles.id');
-            table.integer('realm_id').unsigned().references('realms.id');
-            table.integer('camera_id').unsigned().references('cameras.id');
+
+            table.integer('vehicle_id').unsigned();
+            table.foreign('vehicle_id').onDelete('SET NULL').references('vehicles.id');
+            table.integer('realm_id').unsigned();
+            table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
+            table.integer('camera_id').unsigned();
+            table.foreign('camera_id').onDelete('SET NULL').references('cameras.id');
             table.timestamp('created_at').defaultTo(knex.fn.now());
         })
         .then(() => {
