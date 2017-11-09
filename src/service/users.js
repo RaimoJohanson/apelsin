@@ -64,21 +64,39 @@ module.exports = function(app) {
                 });
             },
             create: function(data, realm_id) {
-                return new Promise((resolve, reject) => { resolve('DEV: Account created and realm added.') });
-                /*
-                output.create(data).then(new_user => {
-                    UsersRealms.insert({ user_id: new_user, realm_id: realm_id, role: data.role }).then(() => {
-                        return 'Account created and realm added.';
-                    })
-                })
-                */
-            },
-            read: function() {
+                //return new Promise((resolve, reject) => { resolve('DEV: Account created and realm added.') });
+                return new Promise((resolve, reject) => {
+                    data.realm_role = data.role;
+                    data.role = 'CLIENT';
 
+                    output.create(data).then(new_user => {
+
+                        UsersRealms.insert({ user_id: new_user[0].id, realm_id: realm_id, role: data.realm_role }).then(() => {
+                            return 'Account created and realm added.';
+                        })
+                    })
+                });
             },
-            update: function() {},
+            update: function(data, realm_id, user_id) {
+                return new Promise((resolve, reject) => {
+                    output.update(data, user_id).then(qq => {
+                        if (data.role) {
+                            data.realm_role = data.role;
+                            data.role = 'CLIENT';
+                        }
+                        UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
+                            return 'Account created and realm added.';
+                        })
+                    })
+                });
+            },
             delete: function(user_id, realm_id) {
-                return new Promise((resolve, reject) => { resolve('realm relation to account deleted.') });
+                return new Promise((resolve, reject) => {
+
+                    UsersRealms.delete({ user_id: user_id, realm_id: realm_id }).then(() => {
+                        return 'Realm relation deleted.';
+                    })
+                });
             }
         }
     };

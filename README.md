@@ -36,19 +36,21 @@ Format of the keys are consistent throughout the API.
 
 
 
-### 2. MAIN:
+### 2. MAIN/ REALM SETTINGS:
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
 ![users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/users.png)
 Example: https://www.example.com/v1/realms
 
-|Method     | Resource                          | Description                           | Keys                                  | Response              
-| ------    | ------                            | ------                                | -----                                 | -----   
-| GET       | /realms                           | List of available realms              |                                       | [{}]      
-| GET       | /realms/{realm_id}/users          | List of users                         |                                       | [{}]
-| GET       | /realms/{realm_id}/users/{user_id}| List of users                         |                                       | [{}]
-
+|Method     | Resource                          | Description                           | Keys                                                | Response              
+| ------    | ------                            | ------                                | -----                                               | -----   
+| GET       | /realms                           | List of available realms              |                                                     | [{}]      
+| GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{}]
+| GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{}]
+| POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 
+| PUT       | /realms/{realm_id}/users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
+| DELETE    | /realms/{realm_id}/users/{user_id}| Delete existing user                  |                                                     |
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 

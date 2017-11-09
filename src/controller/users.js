@@ -79,6 +79,29 @@ module.exports = function(app) {
 
     }); //endpoint
 
+    router.put('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.update(req.body, req.params.rid, req.params.user_id).then(result => {
+            res.json(result);
+        }).catch(errorHandler(res));
+
+    }); //endpoint
+    router.post('/realms/:rid/users', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.create(req.body, req.params.rid).then(result => {
+            res.json(result);
+        }).catch(errorHandler(res));
+
+    }); //endpoint
+
+    router.delete('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.delete(req.params.rid, req.params.user_id).then(result => {
+            res.json(result);
+        }).catch(errorHandler(res));
+
+    }); //endpoint
+
 
     app.use(ROUTE, router);
 }; //end of module.exports
