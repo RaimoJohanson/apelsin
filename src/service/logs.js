@@ -22,13 +22,14 @@ module.exports = function(app) {
                 Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page }).then(results => {
 
                     Logs.find('id', { where: { realm_id: realm_id }, count: 'id as total' }).then(count => {
-                        console.log(count[0].total % (opts.limit || 20));
+
                         return resolve({
                             limit: opts.limit || 20,
                             page: opts.page || 1,
                             total_pages: count[0].total % (opts.limit || 20) ? Math.floor(count[0].total / (opts.limit || 20)) + 1 : count[0].total / (opts.limit || 20),
                             data: results
                         });
+
                     }).catch(reject);
                 }).catch(reject);
             });
@@ -40,7 +41,7 @@ module.exports = function(app) {
             let q = {
                 where: { realm_id: realm_id, vehicle_id: vehicle_id },
                 orderBy: ['created_at', 'desc'],
-                limit: 5
+                limit: 10
             }
             //Untested
             return new Promise((resolve, reject) => {
