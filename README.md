@@ -16,15 +16,20 @@ Format of the keys are consistent throughout the API.
 | first_name                        | string                    | 'Jaan'
 | last_name                         | string                    | 'Tatikas'
 | email                             | string                    | 'john.smith@example.com'
-| role                              | string                    | 'ADMIN','USER'
+| role                              | string                    | 'ADMIN';'USER'
 | password                          | string                    | 'Str0nkPassw0rd'
-| vehicle_id                        | integer                   | 47
 | accepted                          | boolean                   | 1;0;true;false
 | mon, tue, wed, thu, fri, sat, sun | boolean                   | 1;0;true;false
 | begin_date                        | string                    | '2017-12-31'
 | end_date                          | string                    | '2017-12-31'
 | begin_time                        | string                    | '09:59:30'
 | end_time                          | string                    | '09:59:30'
+| plate                             | string                    | '123ABC'
+| make                              | string                    | 'Audi'
+| model                             | string                    | 'Testarossa'
+| asset_tag                         | string                    | 'C123123'
+| alias                             | string                    | 'Peavärav'
+| ip_address                        | string                    | '192.168.13.37'
 
 
 
