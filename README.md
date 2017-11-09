@@ -125,8 +125,8 @@ Paginator query example: ```?limit=10&page=1```
 Response example:
 ```
 {"limit":"10",
-  "page":"2",
-  "total_pages":10,
+  "page":"1",
+  "total_pages":11,
   "data":[{...}]}
 
 ```
