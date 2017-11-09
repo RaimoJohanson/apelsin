@@ -52,9 +52,9 @@ Example: https://www.example.com/v1/realms
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 
-interactions  =>  v1/realms/{realm_id}/logs?limit=5&order=desc
-cameras       =>  v1/realms/{realm_id}/cameras
-statistics    =>  v1/realms/{realm_id}/statistics/today
+interactions  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
+cameras       => GET  v1/realms/{realm_id}/cameras
+statistics    => GET  v1/realms/{realm_id}/statistics/today
 
 ```
 ### 3. VEHICLES
