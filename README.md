@@ -6,6 +6,7 @@
 1. Rules independent from vehicles
 2. User settings / password reset
 3. Realm settings: adding users/admins
+4. Test deleting
 
 ### KEYS & VALUES
 Format of the keys are consistent throughout the API.
@@ -117,5 +118,7 @@ Common: /v1/realms/{realm_id}
 
 |Method     | Resource                  | Description                           | Keys                                  | Response              
 | ------    | ------                    | ------                                | -----                                 | -----   
-| GET       | /logs                     | List of log entries                   |                                       | [{ ... }]  
+| GET       | /logs                     | List of log entries                   | Paginator => Example                  | [{ ... }]  
 | GET       | /logs/{log_id}            | Get specified entry                   |                                       | { ... }
+
+Paginator example: ?limit=10&page=1

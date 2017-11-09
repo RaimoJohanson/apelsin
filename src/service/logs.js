@@ -17,10 +17,12 @@ module.exports = function(app) {
             console.log('Logging event');
             return Logs.insert(Validate.object(data, exp));
         },
-        read: function(realm_id, log_id) {
-            let where = { realm_id: realm_id };
-            if (log_id) where.id = log_id;
-            return Logs.select('*', where);
+        read: function(realm_id, opts = {}) {
+            console.log(opts);
+            return Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page });
+        },
+        readOne: function(realm_id, log_id) {
+            return Logs.select('*', { realm_id: realm_id, id: log_id });
         },
         clean: function(realm_id, vehicle_id) {
             let q = {

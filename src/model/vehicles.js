@@ -12,7 +12,7 @@ module.exports = function(app) {
         "tableName": TABLE_NAME
     }, {
         find: function(columns, opts) {
-            let qb = Knex(TABLE_NAME).select(columns);
+            let qb = Knex(TABLE_NAME);
 
             if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause) });
             else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
@@ -21,6 +21,8 @@ module.exports = function(app) {
             if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
             if (opts['limit']) qb.limit(opts.limit);
             if (opts['offset']) qb.offset(opts.offset);
+
+            qb.select(columns);
             return qb;
         },
         select: function(columns, where) {

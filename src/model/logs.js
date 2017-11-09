@@ -15,7 +15,7 @@ module.exports = function(app) {
         },
     }, {
         find: function(columns, opts) {
-            let qb = Knex(TABLE_NAME).select(columns);;
+            let qb = Knex(TABLE_NAME);
 
             if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause[0], clause[1], clause[2]) });
             else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
@@ -27,8 +27,10 @@ module.exports = function(app) {
             if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
             if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
             if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
-            if (opts['limit']) qb.limit(opts.limit);
-            if (opts['offset']) qb.offset(opts.offset);
+
+            qb.limit(Number(opts.limit) || 20).offset((opts.page * opts.limit - opts.limit) || 0);
+
+            qb.select(columns);
             return qb;
         },
         select: function(columns, where) {

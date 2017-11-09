@@ -12,7 +12,7 @@ module.exports = function(app) {
 
                 let data = Validate.body(params, 'cameras_create');
                 data.realm_id = realm_id;
-                //Check if vehicle exists
+
                 Cameras.select('id', { asset_tag: data.asset_tag, realm_id: data.realm_id }).then(result => {
                     if (result[0]) return resolve('Camera already exists');
                     Cameras.insert(data).then(resolve('Camera added.')).catch(reject);
