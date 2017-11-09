@@ -121,7 +121,7 @@ Common: /v1/realms/{realm_id}
 | GET       | /logs                     | List of log entries                   | Paginator => Example                  | Paginator => Example
 | GET       | /logs/{log_id}            | Get specified entry                   |                                       | { ... }
 
-Paginator example: ?limit=10&page=1
+Paginator query example: ```?limit=10&page=1```
 Response example:
 ```
 {"limit":"10",
