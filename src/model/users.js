@@ -11,9 +11,9 @@ module.exports = function(app) {
     let User = Bookshelf.Model.extend({
         "tableName": TABLE_NAME
     }, {
-        find: function(columns, opts) {
+        find: function(columns, opts = {}) {
             let qb = Knex(TABLE_NAME);
-            if (opts.related) opts.related.forEach(relation => {
+            if (opts['related']) opts.related.forEach(relation => {
                 qb.leftJoin(relation.target_table, TABLE_NAME + '.' + relation.column, relation.target_table + '.' + relation.target_column);
             });
 

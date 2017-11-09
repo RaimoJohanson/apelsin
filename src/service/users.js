@@ -43,7 +43,7 @@ module.exports = function(app) {
         realm: {
             all: function(realm_id) {
 
-                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', 'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by', 'users_realms.role as realm_role'], {
+                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', /*'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by',*/ 'users_realms.role as realm_role'], {
                     related: [{
                         target_column: 'user_id',
                         target_table: 'users_realms',
@@ -53,15 +53,14 @@ module.exports = function(app) {
 
                 });
             },
-            find: function(user_id, realm_id) {
-                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', 'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by', 'users_realms.role as realm_role'], {
+            find: function(realm_id, user_id) {
+                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', /*'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by',*/ 'users_realms.role as realm_role'], {
                     related: [{
                         target_column: 'user_id',
                         target_table: 'users_realms',
                         column: 'id'
                     }],
-                    where: { id: user_id },
-                    whereRaw: 'users_realms.realm_id=' + realm_id
+                    whereRaw: 'users_realms.realm_id=' + realm_id + ' and users.id=' + user_id
                 });
             },
             create: function(data, realm_id) {

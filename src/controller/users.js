@@ -71,6 +71,14 @@ module.exports = function(app) {
 
     }); //endpoint
 
+    router.get('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.find(req.params.rid, req.params.user_id).then(result => {
+            res.json(result);
+        }).catch(errorHandler(res));
+
+    }); //endpoint
+
 
     app.use(ROUTE, router);
 }; //end of module.exports

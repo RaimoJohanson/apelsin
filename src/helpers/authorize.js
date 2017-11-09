@@ -8,8 +8,8 @@ const DEBUG = 0,
 
 module.exports = function(app) {
 
-    const Bookshelf = app.get('bookshelf');
-    const _ = require("lodash");
+    var Bookshelf = app.get('bookshelf');
+    var _ = require("lodash");
     let Cameras = app.locals.model.cameras;
     let Users = app.locals.model.users;
     let Authorize = {};

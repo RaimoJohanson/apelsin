@@ -3,12 +3,6 @@
 const ROUTE = '/v1';
 const router = require('express').Router();
 
-
-var request = require('request');
-const multer = require('multer');
-const fs = require('fs');
-
-
 module.exports = function(app) {
     const errorHandler = require('../helpers/errorhandler');
 
@@ -23,7 +17,6 @@ module.exports = function(app) {
         Rules.all(req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
-
     }); //endpoint
 
     router.get('/realms/:rid/rules/:rule_id', Authorize.realm(), function(req, res) {
@@ -31,7 +24,6 @@ module.exports = function(app) {
         Rules.read(req.params.rid, req.params.rule_id).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
-
     }); //endpoint
 
     router.post('/realms/:rid/rules', Authorize.realm('ADMIN'), function(req, res) {
@@ -40,7 +32,6 @@ module.exports = function(app) {
         Rules.create(req.body, req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
-
     }); //endpoint
 
     router.put('/realms/:rid/rules/:rule_id', Authorize.realm('ADMIN'), function(req, res) {
@@ -49,7 +40,6 @@ module.exports = function(app) {
         Rules.update(req.body, req.params.rid, req.params.rule_id).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
-
     }); //endpoint
 
     router.delete('/realms/:rid/rules/:rule_id', Authorize.realm('ADMIN'), function(req, res) {
@@ -57,11 +47,7 @@ module.exports = function(app) {
         Rules.delete(req.params.user_id).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
-
     }); //endpoint
-
-
-
 
     app.use(ROUTE, router);
 }; //end of module.exports

@@ -40,22 +40,21 @@ Format of the keys are consistent throughout the API.
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
+![users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/users.png)
 Example: https://www.example.com/v1/realms
 
-|Method     | Resource                  | Description                           | Keys                                  | Response              
-| ------    | ------                    | ------                                | -----                                 | -----   
-| GET       | /realms                   | List of available realms              |                                       | [{}]      
-| GET       | /realms/{realm_id}        | Dashboard                             |                                       | {}
-
-
+|Method     | Resource                          | Description                           | Keys                                  | Response              
+| ------    | ------                            | ------                                | -----                                 | -----   
+| GET       | /realms                           | List of available realms              |                                       | [{}]      
+| GET       | /realms/{realm_id}/users          | List of users                         |                                       | [{}]
+| GET       | /realms/{realm_id}/users/{user_id}| List of users                         |                                       | [{}]
 
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 
-interactions =>   v1/realms/{realm_id} /logs?limit=5&order=desc
-cameras => v1/realms/{realm_id} /cameras
-statistics => v1/realms/{realm_id} /statistics/today
-
+interactions  =>  v1/realms/{realm_id}/logs?limit=5&order=desc
+cameras       =>  v1/realms/{realm_id}/cameras
+statistics    =>  v1/realms/{realm_id}/statistics/today
 
 ```
 ### 3. VEHICLES
