@@ -99,14 +99,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
   Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
   Reegli puudumisel tuleb põjenduseks: ```reason: 'Default decision'```.
   </dd>
-  <dt>Hierarchy</dt>
-  <dd>
-  1. Kellajaline piirang
-  2. Kuupäevaline piirang
-  3. Nädalapäevaline piirang
-
-Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellisel juhul ```accepted:1``` muudab vaid läbi laskmise põhjenduse ära: ```reason: 'Policy decision'```.
-  </dd>
+ 
 </dl>
 
 
