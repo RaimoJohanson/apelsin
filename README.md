@@ -13,7 +13,10 @@ Format of the keys are consistent throughout the API.
 
 | Key                               | Value                     | Example
 | ---                               | ---                       | -----
+| first_name                        | string                    | 'Jaan'
+| last_name                         | string                    | 'Tatikas'
 | email                             | string                    | 'john.smith@example.com'
+| role                              | string                    | 'ADMIN','USER'
 | password                          | string                    | 'Str0nkPassw0rd'
 | vehicle_id                        | integer                   | 47
 | accepted                          | boolean                   | 1;0;true;false
@@ -25,7 +28,7 @@ Format of the keys are consistent throughout the API.
 
 
 
-### 1. AUTHENTICATING & SETTINGS
+### 1. AUTHENTICATING 
 ---
  Example: https://www.example.com/v1/login
 
