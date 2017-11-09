@@ -12,14 +12,10 @@ module.exports = function(app) {
     //===================
 
 
-    router.get('/realms/:rid/statistics', Authorize.realm(), function(req, res) {
-
-        Statistics.generate2(req.params.rid, req.query).then(result => {
-
+    router.get('/realms/:rid/statistics/today', Authorize.realm(), function(req, res) {
+        Statistics.interactions.today(req.params.rid).then(result => {
             res.json(result);
-
         }).catch(errorHandler(res));
-
     }); //endpoint
 
 

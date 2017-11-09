@@ -22,7 +22,7 @@ module.exports = function(app) {
 
                 var getLastInteractions = Logs.find(['accepted', 'plate', 'reason', 'created_at'], { where: { realm_id: realm_id }, limit: 5, orderBy: ['created_at', 'desc'] })
                 var getCameras = Cameras.select(['id', 'asset_tag', 'alias', 'ip_address'], { realm_id: realm_id })
-                var getStatistics = Statistics.interactions.today(realm_id)
+                var getStatistics = Statistics.interactions.today(realm_id).catch(reject)
 
 
                 Promise.all([getLastInteractions, getCameras, getStatistics]).then(values => {

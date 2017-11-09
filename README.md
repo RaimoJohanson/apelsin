@@ -48,6 +48,16 @@ Example: https://www.example.com/v1/realms
 | GET       | /realms/{realm_id}        | Dashboard                             |                                       | {}
 
 
+
+```
+DASHBOARD: Tee lihtsalt 3 päringut:
+
+interactions =>   v1/realms/{realm_id} /logs?limit=5&order=desc
+cameras => v1/realms/{realm_id} /cameras
+statistics => v1/realms/{realm_id} /statistics/today
+
+
+```
 ### 3. VEHICLES
 ---
 ![vehicles-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/vehicles.png)
@@ -124,8 +134,8 @@ Common: /v1/realms/{realm_id}
 Paginator query example: ```?limit=10&page=1```
 Response example:
 ```
-{"limit":"10",
-  "page":"1",
+{"limit":10,
+  "page":1,
   "total_pages":11,
   "data":[{...}]}
 

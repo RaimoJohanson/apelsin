@@ -14,23 +14,23 @@ module.exports = function(app) {
             return this.save(params);
         },
     }, {
-        find: function(columns, opts) {
+        find: function(columns, opts = {}) {
 
             let qb = Knex(TABLE_NAME);
 
             if (opts['where'] && Array.isArray(opts['where'])) opts['where'].forEach(clause => { qb.where(clause[0], clause[1], clause[2]) });
             else if (opts['where'] && typeof(opts['where']) === 'object') qb.where(opts.where);
 
-            if (opts['count'] && typeof(opts['count'] === 'string')) qb.count(opts.count);
-            else if (opts['count'] && Array.isArray(opts['count'])) opts['count'].forEach(clause => { qb.count(clause) });
+            if (opts['count']) qb.count(opts.count);
+            //else if (opts['count'] && Array.isArray(opts['count'])) opts['count'].forEach(clause => { qb.count(clause) });
 
             if (opts['whereNotNull']) qb.whereNotNull(opts.whereNotNull);
             if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
             if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
             if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);
 
-            if (opts['limit']) qb.limit(Number(opts.limit) || 20);
-            if (opts['page']) qb.offset((opts.page * opts.limit - opts.limit) || 0);
+            if (opts['limit']) qb.limit(Number(opts.limit));
+            if (opts['page']) qb.offset((opts.page * opts.limit - opts.limit));
 
             qb.select(columns);
 

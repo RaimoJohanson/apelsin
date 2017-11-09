@@ -12,15 +12,16 @@ module.exports = function(app) {
     const output = {
         interactions: {
             thisYear: function(realm_id) {
-                return interactionCount(realm_id, moment().format("YYYY"));
+                return output.generate(realm_id, 'year');
             },
             thisMonth: function(realm_id) {
-                return interactionCount(realm_id, moment().format("YYYY-MM"));
+                return output.generate(realm_id, 'month');
             },
             today: function(realm_id) {
-                return interactionCount(realm_id, moment().format("YYYY-MM-DD"));
+                return output.generate(realm_id, 'today');
             },
         },
+
         generate: function(realm_id, period) {
 
             return new Promise((resolve, reject) => {
@@ -32,33 +33,33 @@ module.exports = function(app) {
                 else if (period == 'today') target_period = moment().format("YYYY-MM-DD");
 
                 let total = new Promise((resolve, reject) => {
-                    Logs.find('*', {
+                    Logs.find('id', {
                         count: 'id as count',
                         where: [
                             ['created_at', 'like', target_period + '%'],
                             ['realm_id', '=', realm_id],
                         ]
-                    }).then(resolve);
+                    }).then(resolve).catch(reject);
                 });
                 let accepted = new Promise((resolve, reject) => {
-                    Logs.find('*', {
+                    Logs.find('id', {
                         count: 'id as count',
                         where: [
                             ['created_at', 'like', target_period + '%'],
                             ['realm_id', '=', realm_id],
                             ['accepted', '=', 1],
                         ]
-                    }).then(resolve);
+                    }).then(resolve).catch(reject);
                 });
                 let familiar = new Promise((resolve, reject) => {
-                    Logs.find('*', {
+                    Logs.find('id', {
                         count: 'id as count',
                         where: [
                             ['created_at', 'like', target_period + '%'],
                             ['realm_id', '=', realm_id],
                         ],
                         whereNotNull: 'vehicle_id'
-                    }).then(resolve);
+                    }).then(resolve).catch(reject);
                 });
                 Promise.all([total, accepted, familiar]).then(values => {
 
@@ -70,69 +71,16 @@ module.exports = function(app) {
                         unfamiliar: values[0][0].count - values[2][0].count,
                     };
 
-                    resolve(data);
+                    return resolve(data);
 
                 }).catch(reject);
 
             });
         },
 
+
     };
-    var interactionCount = function(realm_id, period) {
 
-        return new Promise((resolve, reject) => {
-
-            let target_period;
-
-            if (period == 'year') target_period = moment().format("YYYY");
-            else if (period == 'month') target_period = moment().format("YYYY-MM");
-            else if (period == 'today') target_period = moment().format("YYYY-MM-DD");
-
-            let total = new Promise((resolve, reject) => {
-                Logs.find('*', {
-                    count: 'id as count',
-                    where: [
-                        ['created_at', 'like', target_period + '%'],
-                        ['realm_id', '=', realm_id],
-                    ]
-                }).then(resolve);
-            });
-            let accepted = new Promise((resolve, reject) => {
-                Logs.find('*', {
-                    count: 'id as count',
-                    where: [
-                        ['created_at', 'like', target_period + '%'],
-                        ['realm_id', '=', realm_id],
-                        ['accepted', '=', 1],
-                    ]
-                }).then(resolve);
-            });
-            let familiar = new Promise((resolve, reject) => {
-                Logs.find('*', {
-                    count: 'id as count',
-                    where: [
-                        ['created_at', 'like', target_period + '%'],
-                        ['realm_id', '=', realm_id],
-                    ],
-                    whereNotNull: 'vehicle_id'
-                }).then(resolve);
-            });
-            Promise.all([total, accepted, familiar]).then(values => {
-
-                let data = {
-                    total: values[0][0].count,
-                    accepted: values[1][0].count,
-                    rejected: values[0][0].count - values[1][0].count,
-                    familiar: values[2][0].count,
-                    unfamiliar: values[0][0].count - values[2][0].count,
-                };
-
-                resolve(data);
-
-            }).catch(reject);
-
-        });
-    };
     return output;
 
 }; //end of module.exports

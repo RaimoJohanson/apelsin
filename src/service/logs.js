@@ -19,13 +19,13 @@ module.exports = function(app) {
         },
         read: function(realm_id, opts = {}) {
             return new Promise((resolve, reject) => {
-                Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page }).then(results => {
+                Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page, orderBy: ['created_at', opts.order] }).then(results => {
 
                     Logs.find('id', { where: { realm_id: realm_id }, count: 'id as total' }).then(count => {
 
                         return resolve({
-                            limit: opts.limit || 20,
-                            page: opts.page || 1,
+                            limit: Number(opts.limit) || 0,
+                            page: Number(opts.page) || 0,
                             total_pages: count[0].total % (opts.limit || 20) ? Math.floor(count[0].total / (opts.limit || 20)) + 1 : count[0].total / (opts.limit || 20),
                             data: results
                         });
