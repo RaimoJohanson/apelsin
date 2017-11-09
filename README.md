@@ -40,7 +40,7 @@ Format of the keys are consistent throughout the API.
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
-![users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/users.png)
+![realm_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_settings.png)
 Example: https://www.example.com/v1/realms
 
 |Method     | Resource                          | Description                           | Keys                                                | Response              
