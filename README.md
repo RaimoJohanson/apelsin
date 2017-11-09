@@ -104,11 +104,11 @@ Kui üldse pole piiranguid seatud, siis kehtib ```accepted``` väärtus. Sellise
 | ------    | ------                    | ------                                | -----                                 | -----   
 | GET       | /rules                    | List of rules                         |                                       | [{ ... }]  
 | GET       | /rules/{rule_id}          | Get specified rule                    |                                       | [{ ... }]  
-| POST      | /rules                    | Add new rule                          | Example: Keys                         | 
+| POST      | /rules                    | Add new rule                          | Example: Parameters                   | 
 | PUT       | /rules/{rule_id}          | Modify existing rule                  |                                       | 
 | DELETE    | /rules/{rule_id}          | Delete existing rule                  |                                       |
 
-Keys: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
+Parameters: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
 
 ### 6. LOGS
 ---
@@ -118,7 +118,16 @@ Common: /v1/realms/{realm_id}
 
 |Method     | Resource                  | Description                           | Keys                                  | Response              
 | ------    | ------                    | ------                                | -----                                 | -----   
-| GET       | /logs                     | List of log entries                   | Paginator => Example                  | [{ ... }]  
+| GET       | /logs                     | List of log entries                   | Paginator => Example                  | Paginator => Example
 | GET       | /logs/{log_id}            | Get specified entry                   |                                       | { ... }
 
 Paginator example: ?limit=10&page=1
+Response example:
+```
+{ "limit":"10",
+  "page":"2",
+  "total_pages":10,
+  "data":[{...}]
+}
+
+```

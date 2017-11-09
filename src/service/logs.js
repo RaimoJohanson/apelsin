@@ -18,8 +18,20 @@ module.exports = function(app) {
             return Logs.insert(Validate.object(data, exp));
         },
         read: function(realm_id, opts = {}) {
-            console.log(opts);
-            return Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page });
+            return new Promise((resolve, reject) => {
+                Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page }).then(results => {
+
+                    Logs.find('id', { where: { realm_id: realm_id }, count: 'id as total' }).then(count => {
+                        console.log(count[0].total % (opts.limit || 20));
+                        return resolve({
+                            limit: opts.limit || 20,
+                            page: opts.page || 1,
+                            total_pages: count[0].total % (opts.limit || 20) ? Math.floor(count[0].total / (opts.limit || 20)) + 1 : count[0].total / (opts.limit || 20),
+                            data: results
+                        });
+                    }).catch(reject);
+                }).catch(reject);
+            });
         },
         readOne: function(realm_id, log_id) {
             return Logs.select('*', { realm_id: realm_id, id: log_id });
