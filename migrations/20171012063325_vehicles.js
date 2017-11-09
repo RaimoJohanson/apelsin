@@ -106,12 +106,4 @@ var dummy = [{
         realm_id: 1
 
     }
-]
-
-/*
-VEHICLES
-ID
-plate
-make
-model
-*/
+];

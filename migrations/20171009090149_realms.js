@@ -17,34 +17,7 @@ exports.up = function(knex, Promise) {
         })
         .then(() => {
 
-            return knex('realms')
-                .insert([{
-                        name: 'Maakodu',
-                        country: 'Eesti',
-                        region: 'Lääne-Virumaa',
-                        city: 'Rakvere vald',
-                        street: 'Kasekünka talu'
-                    }, {
-                        name: 'Test objekt',
-                        country: 'Eesti',
-                        region: 'Harjumaa'
-                    },
-                    {
-                        name: 'Test objekt 2',
-                        country: 'Eesti',
-                        region: 'Saaremaa'
-                    },
-                    {
-                        name: 'Test objekt 3',
-                        country: 'Eesti',
-                        region: 'Lääne-Virumaa'
-                    },
-                    {
-                        name: 'Test objekt 4',
-                        country: 'Eesti',
-                        region: 'Tartumaa'
-                    }
-                ]);
+            return knex('realms').insert(dummy);
         });
 };
 
@@ -60,3 +33,41 @@ Locality (City / Municipality)
 Sub-Locality (County / other sub-division of a locality)
 Street
 */
+var dummy = [{
+        name: 'Maakodu',
+        country: 'Eesti',
+        region: 'Lääne-Virumaa',
+        city: 'Rakvere vald',
+        street: 'Kasekünka talu'
+    }, {
+        name: 'KÜ Virbi 2',
+        country: 'Eesti',
+        region: 'Harjumaa',
+        city: 'Tallinn',
+        street: 'Virbi',
+        street_number: '2'
+    },
+    {
+        name: 'KÜ Tehnika 78',
+        country: 'Eesti',
+        region: 'Harjumaa',
+        city: 'Tallinn',
+        street: 'Tehnika',
+        street_number: '78'
+    },
+    {
+        name: 'Merelaine turismitalu',
+        country: 'Eesti',
+        region: 'Saaremaa',
+        city: 'Saare vald',
+        street: 'Veski talu'
+    },
+    {
+        name: 'EMÜ ühiselamu',
+        country: 'Eesti',
+        region: 'Tartumaa',
+        city: 'Tartu',
+        street: 'Kreutzwaldi',
+        street_number: '52'
+    }
+]

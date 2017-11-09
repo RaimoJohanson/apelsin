@@ -20,45 +20,16 @@ module.exports = function(app) {
 
             return new Promise((resolve, reject) => {
 
-                var p1 = new Promise((resolve, reject) => {
+                var getLastInteractions = Logs.find(['accepted', 'plate', 'reason', 'created_at'], { where: { realm_id: realm_id }, limit: 5, orderBy: ['created_at', 'desc'] })
+                var getCameras = Cameras.select(['id', 'asset_tag', 'alias', 'ip_address'], { realm_id: realm_id })
+                var getStatistics = Statistics.interactions.today(realm_id)
 
-                    Vehicles.select('*', { realm_id: realm_id }).then(resolve).catch(reject);
-                });
-                var p2 = new Promise((resolve, reject) => {
 
-                    Realms.select(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], { id: realm_id }).then(resolve).catch(reject);
-                });
-
-                var p3 = new Promise((resolve, reject) => {
-
-                    Logs.find(['accepted', 'plate', 'reason', 'created_at'], { where: { realm_id: realm_id }, limit: 5 }).then(resolve).catch(reject);
-
-                });
-                var p4 = new Promise((resolve, reject) => {
-
-                    Cameras.select(['id', 'asset_tag', 'alias', 'ip_address'], { realm_id: realm_id }).then(resolve).catch(reject);
-
-                });
-                var p5 = new Promise((resolve, reject) => {
-
-                    // Statistics.day(realm_id).then(resolve).catch(reject);
-                    resolve({
-                        total: 12,
-                        accepted: 8,
-                        unaccepted: 3,
-                        unfamiliar: 1
-                    });
-
-                });
-
-                Promise.all([p1, p2, p3, p4, p5]).then(values => {
-
+                Promise.all([getLastInteractions, getCameras, getStatistics]).then(values => {
                     let data = {
-                        //vehicles: values[0],
-                        //realm: values[1],
-                        interactions: values[2],
-                        cameras: values[3],
-                        statistics: values[4]
+                        interactions: values[0],
+                        cameras: values[1],
+                        statistics: values[2]
                     };
 
                     resolve(data);

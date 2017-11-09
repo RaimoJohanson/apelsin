@@ -16,64 +16,7 @@ exports.up = function(knex, Promise) {
             table.timestamp('created_at').defaultTo(knex.fn.now());
         })
         .then(() => {
-
-            return knex('logs')
-                .insert([{
-                    accepted: false,
-                    plate: '444BA8',
-                    file_name: '/client/temp/1506611421690_IMG_0478.JPG',
-                    camera_id: 1,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Policy decision',
-                    created_at: '2017-10-17 01:20:30'
-
-                }, {
-                    accepted: true,
-                    plate: '444BAB',
-                    file_name: '/client/temp/1506781784792_DSC_0437.JPG',
-                    camera_id: 2,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Policy decision',
-                    created_at: '2017-10-02 06:50:40'
-                }, {
-                    accepted: false,
-                    plate: '444BAB',
-                    file_name: '/client/temp/1506781784792_DSC_0437.JPG',
-                    camera_id: 2,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Policy decision',
-                    created_at: '2017-09-02 06:50:40'
-                }, {
-                    accepted: true,
-                    plate: '444BAB',
-                    file_name: '/client/temp/1506781784792_DSC_0437.JPG',
-                    camera_id: 2,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Policy decision',
-                    created_at: '2017-08-02 06:50:40'
-                }, {
-                    accepted: false,
-                    plate: '444BAB',
-                    file_name: '/client/temp/1506781784792_DSC_0437.JPG',
-                    camera_id: 2,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Default decision',
-                    created_at: '2017-10-01 06:50:40'
-                }, {
-                    accepted: true,
-                    plate: '444BAB',
-                    file_name: '/client/temp/1506781784792_DSC_0437.JPG',
-                    camera_id: 2,
-                    vehicle_id: 1,
-                    realm_id: 1,
-                    reason: 'Default decision',
-                    created_at: '2017-08-02 06:50:40'
-                }]);
+            return knex('logs').insert(gen(500));
         });
 };
 
@@ -81,10 +24,25 @@ exports.down = function(knex, Promise) {
     return knex.schema
         .dropTable('logs');
 };
-/*
-VEHICLES
-ID
-plate
-make
-model
-*/
+
+var gen = function(records) {
+    let op = [];
+    for (var i = 0; i < records; i++) {
+        op.push({
+            accepted: Math.floor((Math.random() * 10)) % 2,
+            plate: getRandomInt(100, 999) + 'TST',
+            file_name: 'DUMMY_DATA_' + Math.floor((Math.random() * 1000) + 1) + '.JPG',
+            reason: Math.floor((Math.random() * 10)) % 2 ? 'Policy decision' : 'Default decision',
+            camera_id: getRandomInt(1, 11),
+            vehicle_id: getRandomInt(1, 13),
+            realm_id: getRandomInt(1, 5),
+            created_at: getRandomInt(2016, 2017) + '-' + getRandomInt(1, 12) + '-' + getRandomInt(1, 30) + ' ' + getRandomInt(1, 23) + ':' + getRandomInt(1, 59) + ':' + getRandomInt(1, 59)
+        });
+
+    }
+    return op;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

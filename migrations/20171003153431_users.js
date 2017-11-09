@@ -15,25 +15,7 @@ exports.up = function(knex, Promise) {
         .then(() => {
 
             return knex('users')
-                .insert([{
-                    first_name: 'Sten',
-                    last_name: 'Saar',
-                    email: 'sten',
-                    password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
-                    role: 'SUPER'
-                }, {
-                    first_name: 'Raimo',
-                    last_name: 'Johanson',
-                    email: 'raimo',
-                    password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
-                    role: 'DEV'
-                }, {
-                    first_name: 'Test',
-                    last_name: 'Client',
-                    email: 'test@client.com',
-                    password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
-                    role: 'CLIENT'
-                }]);
+                .insert(dummy);
         });
 };
 
@@ -41,3 +23,43 @@ exports.down = function(knex, Promise) {
     return knex.schema
         .dropTable('users');
 };
+var dummy = [{
+        first_name: 'Sten',
+        last_name: 'Saar',
+        email: 'sten',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'SUPER'
+    }, {
+        first_name: 'Raimo',
+        last_name: 'Johanson',
+        email: 'raimo',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'DEV'
+    }, {
+        first_name: 'Test1',
+        last_name: 'Client',
+        email: 'test1@client',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'CLIENT'
+    },
+    {
+        first_name: 'Test2',
+        last_name: 'Client',
+        email: 'test2@client',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'CLIENT'
+    }, {
+        first_name: 'Test3',
+        last_name: 'Admin',
+        email: 'test3@admin',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'CLIENT'
+    },
+    {
+        first_name: 'Test4',
+        last_name: 'Admin',
+        email: 'test4@admin',
+        password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
+        role: 'CLIENT'
+    }
+]

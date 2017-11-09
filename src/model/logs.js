@@ -23,6 +23,7 @@ module.exports = function(app) {
             if (opts['count'] && typeof(opts['count'] === 'string')) qb.count(opts.count);
             else if (opts['count'] && Array.isArray(opts['count'])) opts['count'].forEach(clause => { qb.count(clause) });
 
+            if (opts['whereNotNull']) qb.whereNotNull(opts.whereNotNull);
             if (opts['whereIn']) qb.whereIn(opts.whereIn[0], opts.whereIn[1]);
             if (opts['whereRaw']) qb.whereRaw(opts.whereRaw);
             if (opts['orderBy']) qb.orderBy(opts.orderBy[0], opts.orderBy[1]);

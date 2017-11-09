@@ -11,15 +11,7 @@ exports.up = function(knex, Promise) {
         .then(() => {
 
             return knex('users_realms')
-                .insert([{
-                    user_id: 2,
-                    realm_id: 1,
-                    role: 'ADMIN'
-                }, {
-                    user_id: 2,
-                    realm_id: 2,
-                    role: 'USER'
-                }]);
+                .insert(dummy);
         });
 };
 
@@ -34,3 +26,49 @@ user_id
 realm_id
 role                =>        table.enum('role', ['ADMIN', 'USER']);
 */
+
+var dummy = [{
+        user_id: 2,
+        realm_id: 1,
+        role: 'ADMIN'
+    }, {
+        user_id: 2,
+        realm_id: 2,
+        role: 'USER'
+    }, {
+        user_id: 1,
+        realm_id: 1,
+        role: 'USER'
+    }, {
+        user_id: 1,
+        realm_id: 2,
+        role: 'ADMIN'
+    },
+    {
+        user_id: 3,
+        realm_id: 1,
+        role: 'USER'
+    }, {
+        user_id: 4,
+        realm_id: 3,
+        role: 'ADMIN'
+    },
+    {
+        user_id: 5,
+        realm_id: 4,
+        role: 'USER'
+    }, {
+        user_id: 6,
+        realm_id: 4,
+        role: 'ADMIN'
+    },
+    {
+        user_id: 6,
+        realm_id: 5,
+        role: 'USER'
+    }, {
+        user_id: 2,
+        realm_id: 5,
+        role: 'ADMIN'
+    }
+]

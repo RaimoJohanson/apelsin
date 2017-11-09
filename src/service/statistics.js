@@ -10,113 +10,129 @@ module.exports = function(app) {
     const Vehicles = app.locals.model.vehicles;
 
     const output = {
-
-        generate: function(realm_id, opts) {
+        interactions: {
+            thisYear: function(realm_id) {
+                return interactionCount(realm_id, moment().format("YYYY"));
+            },
+            thisMonth: function(realm_id) {
+                return interactionCount(realm_id, moment().format("YYYY-MM"));
+            },
+            today: function(realm_id) {
+                return interactionCount(realm_id, moment().format("YYYY-MM-DD"));
+            },
+        },
+        generate: function(realm_id, period) {
 
             return new Promise((resolve, reject) => {
-                let output = {
-                    interactions: {
-                        total: 0,
-                        familiar: 0,
-                        unfamiliar: 0,
-                        accepted: 0,
-                        rejected: 0,
-                    },
-                    vehicles: [],
-                    rush_hour: {}
-                };
-                let vehicle_fq = {};
 
-                for (let i = 0; i <= 23; i++) {
-                    i < 10 ? output.rush_hour['0' + i] = 0 : output.rush_hour[i] = 0;
-                }
+                let target_period;
 
-                let today = {
-                    weekday: moment().day(),
-                    time: moment().format("HH:mm:ss"),
-                    date: moment().format("YYYY-MM-DD"),
-                    year: moment().format("YYYY")
-                };
-                let q = {
-                    where: { realm_id: realm_id }
-                }
-                if (opts.year) q.whereRaw = 'created_at <= "' + opts.year + '-12-31" and created_at >= "' + opts.year + '-01-01"';
-                else if (opts.month) q.whereRaw = 'created_at <= "' + opts.month + '-31" and created_at >= "' + opts.month + '-01"';
+                if (period == 'year') target_period = moment().format("YYYY");
+                else if (period == 'month') target_period = moment().format("YYYY-MM");
+                else if (period == 'today') target_period = moment().format("YYYY-MM-DD");
 
-                Logs.find('*', q).then(logs => {
-                    if (!logs.length) return reject({ status_code: 404, message: 'Nothing found' })
-                    let os = output.interactions;
-                    let op = output.plates;
-                    os.total = logs.length;
-
-                    async.each(logs, (log, cb) => {
-
-                        log.accepted ? os.accepted += 1 : os.rejected += 1;
-                        log.vehicle_id ? os.familiar += 1 : os.unfamiliar += 1;
-
-                        output.rush_hour[moment(log.created_at).format("HH")] ? output.rush_hour[moment(log.created_at).format("HH")] += 1 : output.rush_hour[moment(log.created_at).format("HH")] = 1;
-                        if (!log.vehicle_id) return cb();
-
-                        vehicle_fq[log.vehicle_id] ? vehicle_fq[log.vehicle_id] += 1 : vehicle_fq[log.vehicle_id] = 1;
-
-                        cb();
-                    }, () => {
-
-                        async.each(Object.keys(vehicle_fq), (vehicle_id, cb) => {
-                            Vehicles.select(['id', 'plate', 'make', 'model'], { id: vehicle_id }).then(result => {
-                                result[0].interactions = vehicle_fq[vehicle_id];
-                                output.vehicles.push(result[0]);
-                                cb();
-                            })
-
-                        }, () => {
-                            resolve(output);
-                        })
-
-                    })
+                let total = new Promise((resolve, reject) => {
+                    Logs.find('*', {
+                        count: 'id as count',
+                        where: [
+                            ['created_at', 'like', target_period + '%'],
+                            ['realm_id', '=', realm_id],
+                        ]
+                    }).then(resolve);
                 });
-            });
-        },
-        generate2: function(realm_id, opts) {
+                let accepted = new Promise((resolve, reject) => {
+                    Logs.find('*', {
+                        count: 'id as count',
+                        where: [
+                            ['created_at', 'like', target_period + '%'],
+                            ['realm_id', '=', realm_id],
+                            ['accepted', '=', 1],
+                        ]
+                    }).then(resolve);
+                });
+                let familiar = new Promise((resolve, reject) => {
+                    Logs.find('*', {
+                        count: 'id as count',
+                        where: [
+                            ['created_at', 'like', target_period + '%'],
+                            ['realm_id', '=', realm_id],
+                        ],
+                        whereNotNull: 'vehicle_id'
+                    }).then(resolve);
+                });
+                Promise.all([total, accepted, familiar]).then(values => {
 
-            return this.month(realm_id, opts.month);
-        },
-        month: function(realm_id, month) {
-            return new Promise((resolve, reject) => {
-                let opts = {
-                    where: [
-                        ['created_at', '<=', month + '-31'],
-                        ['created_at', '>=', month + '-01'],
-                        ['realm_id', '=', realm_id]
-                    ],
-                };
-                Logs.find(['accepted', 'vehicle_id'], opts).then(logs => {
-                    let interactions = {
-                        total: logs.length,
-                        accepted: 0,
-                        rejected: 0,
-                        familiar: 0,
-                        unfamiliar: 0
+                    let data = {
+                        total: values[0][0].count,
+                        accepted: values[1][0].count,
+                        rejected: values[0][0].count - values[1][0].count,
+                        familiar: values[2][0].count,
+                        unfamiliar: values[0][0].count - values[2][0].count,
                     };
-                    async.each(logs, (log, cb) => {
 
-                        log.accepted ? interactions.accepted += 1 : interactions.rejected += 1;
-                        log.vehicle_id ? interactions.familiar += 1 : interactions.unfamiliar += 1;
-
-                        return cb();
-                    }, () => {
-
-                        return resolve(interactions);
-
-                    })
+                    resolve(data);
 
                 }).catch(reject);
 
-            }); //promise
-        }
+            });
+        },
 
     };
+    var interactionCount = function(realm_id, period) {
 
+        return new Promise((resolve, reject) => {
+
+            let target_period;
+
+            if (period == 'year') target_period = moment().format("YYYY");
+            else if (period == 'month') target_period = moment().format("YYYY-MM");
+            else if (period == 'today') target_period = moment().format("YYYY-MM-DD");
+
+            let total = new Promise((resolve, reject) => {
+                Logs.find('*', {
+                    count: 'id as count',
+                    where: [
+                        ['created_at', 'like', target_period + '%'],
+                        ['realm_id', '=', realm_id],
+                    ]
+                }).then(resolve);
+            });
+            let accepted = new Promise((resolve, reject) => {
+                Logs.find('*', {
+                    count: 'id as count',
+                    where: [
+                        ['created_at', 'like', target_period + '%'],
+                        ['realm_id', '=', realm_id],
+                        ['accepted', '=', 1],
+                    ]
+                }).then(resolve);
+            });
+            let familiar = new Promise((resolve, reject) => {
+                Logs.find('*', {
+                    count: 'id as count',
+                    where: [
+                        ['created_at', 'like', target_period + '%'],
+                        ['realm_id', '=', realm_id],
+                    ],
+                    whereNotNull: 'vehicle_id'
+                }).then(resolve);
+            });
+            Promise.all([total, accepted, familiar]).then(values => {
+
+                let data = {
+                    total: values[0][0].count,
+                    accepted: values[1][0].count,
+                    rejected: values[0][0].count - values[1][0].count,
+                    familiar: values[2][0].count,
+                    unfamiliar: values[0][0].count - values[2][0].count,
+                };
+
+                resolve(data);
+
+            }).catch(reject);
+
+        });
+    };
     return output;
 
 }; //end of module.exports
