@@ -43,11 +43,23 @@ Format of the keys are consistent throughout the API.
 | POST      | /login                    | Authenticate and login                | email, password                       | {success, message}
 | PUT       | /logout                   | Log out and end session               | ...                                   | {success, message}
 
+### 2. ACCOUNT SETTINGS:
+---
+![account_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/account_settings.png)
+|Method     | Resource                          | Description                           | Keys                                                | Response   
+| GET       | /users/{user_id}| Get specified user                    |                                                     | [{ ... }]
+| PUT       | /users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
+| DELETE    | /users/{user_id}| Delete existing user                  |                                                     |
 
-
-### 2. REALM SETTINGS:
+### 2. LANDING:
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
+|Method     | Resource                          | Description                           | Keys                                                | Response              
+| ------    | ------                            | ------                                | -----                                               | -----   
+| GET       | /realms                           | List of available realms to user      |                                                         | [{ ... }]  
+| POST      | /realms                           | Add realm. Creator will be admin      |'name','country','region','city','street','street_number'| 
+### 2. DASHBOARD:
+---
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
@@ -57,15 +69,18 @@ cameras       => GET  v1/realms/{realm_id}/cameras
 statistics    => GET  v1/realms/{realm_id}/statistics/today
 
 ```
+### 2. REALM SETTINGS:
+---
+
+
+
 ![realm_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_settings.png)
 Example: https://www.example.com/v1/realms
 
-|Method     | Resource                          | Description                           | Keys                                                | Response              
-| ------    | ------                            | ------                                | -----                                               | -----   
-| GET       | /realms                           | List of available realms to user      |                                                         | [{ ... }]    
-| POST      | /realms                           | Add realm. Creator will be admin      |'name','country','region','city','street','street_number'| 
+|Method     | Resource                          | Description                           | Keys                                                    | Response              
+| ------    | ------                            | ------                                | -----                                                   | -----      
 | PUT       | /realms/{realm_id}                | Modify existing realm                 |'name','country','region','city','street','street_number'| 
-| DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                     |
+| DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                         |
 
 ![realm_users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_users.png)
 |Method     | Resource                          | Description                           | Keys                                                | Response              
