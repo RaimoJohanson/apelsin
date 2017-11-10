@@ -7,8 +7,7 @@ module.exports = function(app) {
     const errorHandler = require('../helpers/errorhandler');
 
     const Authorize = require('../helpers/authorize')(app);
-    let Statistics = require('../service/statistics')(app);
-    let Main = require('../service/main')(app);
+    var Statistics = require('../service/statistics')(app);
     //===================
 
 

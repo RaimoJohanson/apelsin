@@ -3,20 +3,10 @@
 const ROUTE = '/v1';
 const router = require('express').Router();
 
-
-var request = require('request');
-const multer = require('multer');
-const fs = require('fs');
-
-
 module.exports = function(app) {
     const errorHandler = require('../helpers/errorhandler');
-
     const Authorize = require('../helpers/authorize')(app);
-    let Logs = require('../service/logs')(app);
-    let Main = require('../service/main')(app);
-    //===================
-
+    var Logs = require('../service/logs')(app);
 
     router.get('/realms/:rid/logs', Authorize.realm(), function(req, res) {
 

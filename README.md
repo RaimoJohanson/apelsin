@@ -45,7 +45,7 @@ Format of the keys are consistent throughout the API.
 
 
 
-### 2. MAIN/ REALM SETTINGS:
+### 2. REALM SETTINGS:
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
@@ -54,7 +54,13 @@ Example: https://www.example.com/v1/realms
 
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
-| GET       | /realms                           | List of available realms              |                                                     | [{ ... }]      
+| GET       | /realms                           | List of available realms to user      |                                                         | [{ ... }]    
+| POST      | /realms                           | Add realm. Creator will be admin      |'name','country','region','city','street','street_number'| 
+| PUT       | /realms/{realm_id}                | Modify existing realm                 |'name','country','region','city','street','street_number'| 
+| DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                     |
+
+|Method     | Resource                          | Description                           | Keys                                                | Response              
+| ------    | ------                            | ------                                | -----                                               | -----   
 | GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
 | GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{ ... }]
 | POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 
@@ -107,8 +113,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
   Sõidukil võib olla nii keelav kui ka lubav reegel. 
   Lubava reegli puhul väljaspool reegli kehtivust ei lubata sõidukil väravast läbi sõita.
   Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
-  Reegli puudumisel tuleb põjenduseks: 
-  `reason: 'Default decision'`
+  Reegli puudumisel tuleb põjenduseks:  ```reason: 'Default decision'```
   .
   </dd>
  
@@ -122,7 +127,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
 | POST      | /rules                        | Add new rule                          | Example: Parameters                   | 
 | PUT       | /rules/{rule_id}              | Modify existing rule                  |                                       | 
 | DELETE    | /rules/{rule_id}              | Delete existing rule                  |                                       |
-| GET       | /vehicles/search/autocomplete | Autocomplete vehicle within spec. realm. Will search for 'plate','model','make'   | input  | [{ ... }]
+| GET       | /vehicles?input               | Autocomplete vehicle within spec. realm. Will search for 'plate','model','make'   | input  | [{ ... }]
 
 Parameters: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
 
@@ -140,9 +145,11 @@ Common: /v1/realms/{realm_id}
 Paginator query example: ```?limit=10&page=1```
 Response example:
 ```
-{"limit":10,
+{
+"limit":10,
   "page":1,
   "total_pages":11,
-  "data":[{...}]}
+  "data":[{...}]
+}
 
 ```

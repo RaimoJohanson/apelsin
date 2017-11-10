@@ -3,13 +3,11 @@
 const ROUTE = '/v1';
 const router = require('express').Router();
 const multer = require('multer');
-const fs = require('fs-extra');
 const errorHandler = require('../helpers/errorhandler');
 
 
 module.exports = function(app) {
     const Authorize = require('../helpers/authorize')(app);
-    let Main = require('../service/main')(app);
     let Rules = require('../service/rules')(app);
     let Logs = require('../service/logs')(app);
 

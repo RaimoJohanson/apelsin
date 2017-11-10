@@ -14,9 +14,14 @@ module.exports = function(app) {
 
     router.get('/realms/:rid/vehicles', Authorize.realm(), function(req, res) {
 
-        vehicles.read(req.params.rid).then(data => {
-            res.json(data);
+        if (req.query.input) vehicles.autocomplete(req.query.input, req.params.rid).then(result => {
+            return res.json(result);
         }).catch(errorHandler(res));
+
+        else vehicles.read(req.params.rid).then(data => {
+            return res.json(data);
+        }).catch(errorHandler(res));
+
     }); //end of app.get
 
 
@@ -53,13 +58,7 @@ module.exports = function(app) {
         }).catch(errorHandler(res));
 
     }); //end of endpoint
-    router.get('/realms/:rid/vehicles/search/autocomplete', Authorize.realm(), function(req, res) {
 
-        vehicles.autocomplete(req.query.input, req.params.rid).then(result => {
-            res.json(result);
-        }).catch(errorHandler(res));
-
-    }); //end of endpoint
 
     app.use(ROUTE, router);
 
