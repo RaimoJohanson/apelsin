@@ -108,7 +108,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
   Lubava reegli puhul väljaspool reegli kehtivust ei lubata sõidukil väravast läbi sõita.
   Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
   Reegli puudumisel tuleb põjenduseks: 
-  ```reason: 'Default decision'```
+  `reason: 'Default decision'`
   .
   </dd>
  
