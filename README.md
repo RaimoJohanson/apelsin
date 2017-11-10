@@ -54,9 +54,9 @@ Example: https://www.example.com/v1/realms
 
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
-| GET       | /realms                           | List of available realms              |                                                     | [{}]      
-| GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{}]
-| GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{}]
+| GET       | /realms                           | List of available realms              |                                                     | [{ ... }]      
+| GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
+| GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{ ... }]
 | POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 
 | PUT       | /realms/{realm_id}/users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
 | DELETE    | /realms/{realm_id}/users/{user_id}| Delete existing user                  |                                                     |
@@ -107,7 +107,9 @@ Example: https://www.example.com/api/v1/realms/1/rules
   Sõidukil võib olla nii keelav kui ka lubav reegel. 
   Lubava reegli puhul väljaspool reegli kehtivust ei lubata sõidukil väravast läbi sõita.
   Algselt on kõik lisatud numbrimärgid(sõidukid) lubatud läbi värava. 
-  Reegli puudumisel tuleb põjenduseks: ```reason: 'Default decision'```.
+  Reegli puudumisel tuleb põjenduseks: 
+  ```reason: 'Default decision'```
+  .
   </dd>
  
 </dl>
