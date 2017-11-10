@@ -49,6 +49,14 @@ Format of the keys are consistent throughout the API.
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
+```
+DASHBOARD: Tee lihtsalt 3 päringut:
+
+interactions  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
+cameras       => GET  v1/realms/{realm_id}/cameras
+statistics    => GET  v1/realms/{realm_id}/statistics/today
+
+```
 ![realm_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_settings.png)
 Example: https://www.example.com/v1/realms
 
@@ -59,6 +67,7 @@ Example: https://www.example.com/v1/realms
 | PUT       | /realms/{realm_id}                | Modify existing realm                 |'name','country','region','city','street','street_number'| 
 | DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                     |
 
+![realm_users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_users.png)
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
 | GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
@@ -66,14 +75,7 @@ Example: https://www.example.com/v1/realms
 | POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 
 | PUT       | /realms/{realm_id}/users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
 | DELETE    | /realms/{realm_id}/users/{user_id}| Delete existing user                  |                                                     |
-```
-DASHBOARD: Tee lihtsalt 3 päringut:
 
-interactions  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
-cameras       => GET  v1/realms/{realm_id}/cameras
-statistics    => GET  v1/realms/{realm_id}/statistics/today
-
-```
 ### 3. VEHICLES
 ---
 ![vehicles-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/vehicles.png)
