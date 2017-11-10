@@ -1,5 +1,6 @@
 'use strict';
-
+const CLIENT = 'CLIENT';
+const SUPER = 'SUPER';
 const ROUTE = '/v1';
 const router = require('express').Router();
 
@@ -16,7 +17,7 @@ module.exports = function(app) {
     //===================
 
 
-    router.get('/users', Authorize.account('SUPER'), function(req, res, next) {
+    router.get('/users', Authorize.account(SUPER), function(req, res, next) {
 
         Users.all().then(result => {
             res.json(result);
@@ -24,7 +25,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.get('/users/:user_id', Authorize.account('SUPER'), function(req, res) {
+    router.get('/users/:user_id', Authorize.account(CLIENT), function(req, res) {
 
         Users.read(req.params.user_id).then(result => {
             res.json(result);
@@ -32,7 +33,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.post('/users', Authorize.account('SUPER'), function(req, res) {
+    router.post('/users', Authorize.account(SUPER), function(req, res) {
         req.body.created_by = res.locals.user.id;
         req.body.created_at = moment().format("YYYY-MM-DD kk:mm:ss");
 
@@ -42,7 +43,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.put('/users/:user_id', Authorize.account('SUPER'), function(req, res) {
+    router.put('/users/:user_id', Authorize.account(CLIENT), function(req, res) {
         req.body.updated_by = res.locals.user.id;
         req.body.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
 
@@ -52,7 +53,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.delete('/users/:user_id', Authorize.account('SUPER'), function(req, res) {
+    router.delete('/users/:user_id', Authorize.account(SUPER), function(req, res) {
 
         Users.delete(req.params.user_id).then(result => {
             res.json(result);

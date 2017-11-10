@@ -30,6 +30,7 @@ Format of the keys are consistent throughout the API.
 | asset_tag                         | string                    | 'C123123'
 | alias                             | string                    | 'Peavärav'
 | ip_address                        | string                    | '192.168.13.37'
+| input                             | string                    | 'Ferrari'
 
 
 
