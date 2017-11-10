@@ -46,6 +46,7 @@ Format of the keys are consistent throughout the API.
 ### 2. ACCOUNT SETTINGS:
 ---
 ![account_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/account_settings.png)
+
 |Method     | Resource                          | Description                           | Keys                                                | Response   
 | GET       | /users/{user_id}| Get specified user                    |                                                     | [{ ... }]
 | PUT       | /users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
@@ -54,13 +55,16 @@ Format of the keys are consistent throughout the API.
 ### 2. LANDING:
 ---
 ![landing-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/landing.png)
+
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
 | GET       | /realms                           | List of available realms to user      |                                                         | [{ ... }]  
 | POST      | /realms                           | Add realm. Creator will be admin      |'name','country','region','city','street','street_number'| 
+
 ### 2. DASHBOARD:
 ---
 ![dashboard-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/dashboard.png)
+
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 
@@ -72,8 +76,6 @@ statistics    => GET  v1/realms/{realm_id}/statistics/today
 ### 2. REALM SETTINGS:
 ---
 
-
-
 ![realm_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_settings.png)
 Example: https://www.example.com/v1/realms
 
@@ -83,6 +85,7 @@ Example: https://www.example.com/v1/realms
 | DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                         |
 
 ![realm_users-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/realm_users.png)
+
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
 | GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
