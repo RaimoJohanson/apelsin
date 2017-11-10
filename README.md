@@ -69,9 +69,9 @@ Format of the keys are consistent throughout the API.
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 
-interactions  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
-cameras       => GET  v1/realms/{realm_id}/cameras
-statistics    => GET  v1/realms/{realm_id}/statistics/today
+Archive  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
+Cameras       => GET  v1/realms/{realm_id}/cameras
+Statistics    => GET  v1/realms/{realm_id}/statistics/today
 
 ```
 ### 5. REALM SETTINGS:
