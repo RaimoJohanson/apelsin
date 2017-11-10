@@ -57,10 +57,10 @@ Format of the keys are consistent throughout the API.
 ![account_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/account_settings.png)
 
 |Method     | Resource                    | Description                           | Keys                                                | Response   
+| ------    | ------                            | ------                                | -----                                               | -----   
 | GET       | /users/{user_id}            | Get specified user                    |                                                     | [{ ... }]
 | PUT       | /users/{user_id}            | Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
 | DELETE    | /users/{user_id}            | Delete existing user                  |                                                     |
-
 
 ### 4. DASHBOARD:
 ---
