@@ -112,13 +112,14 @@ Example: https://www.example.com/api/v1/realms/1/rules
 </dl>
 
 
-|Method     | Resource                  | Description                           | Keys                                  | Response              
-| ------    | ------                    | ------                                | -----                                 | -----   
-| GET       | /rules                    | List of rules                         |                                       | [{ ... }]  
-| GET       | /rules/{rule_id}          | Get specified rule                    |                                       | [{ ... }]  
-| POST      | /rules                    | Add new rule                          | Example: Parameters                   | 
-| PUT       | /rules/{rule_id}          | Modify existing rule                  |                                       | 
-| DELETE    | /rules/{rule_id}          | Delete existing rule                  |                                       |
+|Method     | Resource                      | Description                           | Keys                                  | Response              
+| ------    | ------                        | ------                                | -----                                 | -----   
+| GET       | /rules                        | List of rules                         |                                       | [{ ... }]  
+| GET       | /rules/{rule_id}              | Get specified rule                    |                                       | [{ ... }]  
+| POST      | /rules                        | Add new rule                          | Example: Parameters                   | 
+| PUT       | /rules/{rule_id}              | Modify existing rule                  |                                       | 
+| DELETE    | /rules/{rule_id}              | Delete existing rule                  |                                       |
+| GET       | /vehicles/search/autocomplete | Autocomplete vehicle within spec. realm. Will search for 'plate','model','make'   | input  | [{ ... }]
 
 Parameters: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
 

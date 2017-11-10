@@ -30,6 +30,24 @@ module.exports = function(app) {
         },
         delete: function(vehicle_id, realm_id) {
             return Vehicles.delete({ id: vehicle_id, realm_id: realm_id });
+        },
+        autocomplete: function(input, realm_id) {
+            /*
+            return new Promise((resolve, reject) => {
+
+                if (input.length < 2) return reject({ status_code: 412, status: 'INVALID_REQUEST', message: 'Input string length must be at least 2 characters.' });
+
+                let columns = ['id', 'plate', 'make', 'model'];
+
+                Vehicles.autocomplete(columns, input, realm_id).then(result => {
+                    if (!result.length) return reject({ status_code: 200, status: 'ZERO_RESULTS', message: 'No vehicles found' });
+                    else return resolve(result);
+                });
+
+            });
+            */
+            let columns = ['id', 'plate', 'make', 'model'];
+            return Vehicles.autocomplete(columns, input, realm_id);
         }
     };
 

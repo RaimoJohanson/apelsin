@@ -48,7 +48,22 @@ module.exports = function(app) {
         },
         delete: function(where) {
             return Knex(TABLE_NAME).del().where(where);
-        }
+        },
+        autocomplete: function(columns, input, realm_id) {
+            let qb = Knex(TABLE_NAME).select(columns);
+            qb.where('realm_id', '=', realm_id);
+
+            qb.andWhere(function() {
+                this.where('plate', 'like', '%' + input + '%')
+                    .orWhere('make', 'like', '%' + input + '%')
+                    .orWhere('model', 'like', '%' + input + '%');
+
+            });
+
+
+
+            return qb;
+        },
 
 
     });
