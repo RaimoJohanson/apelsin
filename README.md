@@ -2,6 +2,9 @@
 # G8Keeper API
 
 ## Reference document
+
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@path/to/file" https://example.com/v1/recognize/C100001
+
 ### To-do
 1. Rules independent from vehicles
 2. User settings / password reset
@@ -10,6 +13,7 @@
 
 ### KEYS & VALUES
 Format of the keys are consistent throughout the API.
+All id's are numbers.
 
 | Key                               | Value                     | Example
 | ---                               | ---                       | -----
@@ -69,7 +73,7 @@ Format of the keys are consistent throughout the API.
 ```
 DASHBOARD: Tee lihtsalt 3 päringut:
 
-Archive  => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
+Archive       => GET  v1/realms/{realm_id}/logs?limit=5&order=desc
 Cameras       => GET  v1/realms/{realm_id}/cameras
 Statistics    => GET  v1/realms/{realm_id}/statistics/today
 

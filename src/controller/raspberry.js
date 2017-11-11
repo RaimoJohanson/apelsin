@@ -28,10 +28,11 @@ module.exports = function(app) {
     router.post('/recognize/:tag', Authorize.camera(), upload.single('image'), (req, res) => {
         console.log('Camera asset_tag valid. Image uploaded');
         console.log(req.file);
+        if (!req.file) return res.status(412).json('File not uploaded');
 
         Openalpr.connect(req.file.path).then(data => {
             //check licence plate with DB. Declare status.
-            Rules.checkPlate(data.plate, req.params.tag, req.file.name).then(plate_check => {
+            Rules.checkPlate(data.plate, req.params.tag, req.file.filename).then(plate_check => {
 
                 Rules.checkPolicy(plate_check).then(result => {
                     //save to logs

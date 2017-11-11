@@ -57,10 +57,10 @@ module.exports = function(app) {
   app.use(function(req, res, next) {
 
     //Exeptions to endpoints that do not require authentication
-    let exeptions = ['/v1/login', '/v1/logout', '/v1/recognize'];
+    let exeptions = ['/v1/login', '/v1/logout'];
     let requested_url = url.parse(req.url).pathname;
     if (_.includes(exeptions, requested_url)) return next();
-
+    if (requested_url.includes("/v1/recognize")) return next();
 
     if (!req.isAuthenticated()) {
       return res.render('login.html');
