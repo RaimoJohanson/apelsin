@@ -3,8 +3,6 @@
 
 ## Reference document
 
-curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@path/to/file" https://example.com/v1/recognize/C100001
-
 ### To-do
 1. Rules independent from vehicles
 2. User settings / password reset
@@ -36,8 +34,19 @@ All id's are numbers.
 | ip_address                        | string                    | '192.168.13.37'
 | input                             | string                    | 'Ferrari'
 
+### RASPBERRY
+---
+
+|Method     | Resource                  | Description                           | Keys               | Response
+| ------    | ------                    | ------                                | -----              | -----
+| POST      | /recognize/{asset_tag}    | Whether or not open the gate          |                    | { data? } / boolean?
 
 
+```
+Example:
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@temp/image.jpg" https://example.com/v1/recognize/C100001
+
+```
 ### 1. AUTHENTICATING 
 ---
  Example: https://www.example.com/v1/login
