@@ -3,7 +3,7 @@
 
 ## Reference document
 ### DEMO HTML
-.../test/dashboard.html
+https://kooliprojekt-raimoj.c9users.io/test/landing.html
 
 ### To-do
 1. Rules independent from vehicles
