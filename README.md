@@ -2,6 +2,8 @@
 # G8Keeper API
 
 ## Reference document
+### DEMO HTML
+.../test/dashboard.html
 
 ### To-do
 1. Rules independent from vehicles
