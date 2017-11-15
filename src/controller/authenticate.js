@@ -1,12 +1,18 @@
 const ROUTE = '/v1';
 const router = require('express').Router();
-
+const _ = require('lodash');
 module.exports = function(app) {
 
     const passport = app.get('passport');
     const errorHandler = require('../helpers/errorhandler');
 
     //==============================================================================
+    router.get('/status', function(req, res, next) {
+        return res.json({
+            message: 'Signed in',
+            user: _.omit(res.locals.user, ['password', '_realms_', '_rids_', 'created_at', 'created_by', 'updated_at', 'updated_by'])
+        });
+    });
     router.post('/login', function(req, res, next) {
 
         if (!req.body.password || !req.body.email) {

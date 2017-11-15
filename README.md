@@ -57,6 +57,7 @@ curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@temp/image.jpg
 | ------    | ------                    | ------                                | -----                                 | -----
 | POST      | /login                    | Authenticate and login                | email, password                       | {success, message}
 | PUT       | /logout                   | Log out and end session               | ...                                   | {success, message}
+| GET       | /status                   | Logged in status                      | ...                                   | {message, user}
 
 ### 2. LANDING:
 ---

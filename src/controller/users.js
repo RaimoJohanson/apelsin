@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     let Users = require('../service/users')(app);
     //===================
-
+    
 
     router.get('/users', Authorize.account(SUPER), function(req, res, next) {
 
