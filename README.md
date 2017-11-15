@@ -98,6 +98,7 @@ Example: https://www.example.com/v1/realms
 
 |Method     | Resource                          | Description                           | Keys                                                    | Response              
 | ------    | ------                            | ------                                | -----                                                   | -----      
+| GET       | /realms/{realm_id}                | Realm data                            |                                                         |
 | PUT       | /realms/{realm_id}                | Modify existing realm                 |'name','country','region','city','street','street_number'| 
 | DELETE    | /realms/{realm_id}                | Delete existing realm                 |                                                         |
 

@@ -27,11 +27,11 @@ module.exports = function(app) {
                     //Check privileges
                     console.log('Checking privileges');
                     if (res.locals.user._realms_[req.params.rid] == key) return next();
-                    else return res.status(FORBIDDEN_CODE).send('Forbidden. No rights.');
+                    else return res.status(FORBIDDEN_CODE).send('Forbidden');
                 }
                 else return next();
             }
-            else return res.status(FORBIDDEN_CODE).send('Access denied. Wrong realm.');
+            else return res.status(FORBIDDEN_CODE).send('Access denied');
 
         };
 

@@ -9,7 +9,7 @@ module.exports = function(app) {
     //==============================================================================
     router.get('/status', function(req, res, next) {
         return res.json({
-            message: 'Signed in',
+            message: 'Logged in',
             user: _.omit(res.locals.user, ['password', '_realms_', '_rids_', 'created_at', 'created_by', 'updated_at', 'updated_by'])
         });
     });

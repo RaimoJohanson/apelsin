@@ -63,7 +63,7 @@ module.exports = function(app) {
     if (requested_url.includes("/v1/recognize")) return next();
 
     if (!req.isAuthenticated()) {
-      return res.status(403).json({ message: 'Not logged in' });
+      return res.status(401).json({ message: 'Not logged in' });
     }
 
 

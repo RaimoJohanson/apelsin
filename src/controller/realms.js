@@ -32,13 +32,20 @@ module.exports = function(app) {
     }); //endpoint
 
     router.get('/realms/:rid', Authorize.realm(), function(req, res) {
+        console.log(res.locals.user);
+
+        Realms.landing([req.params.rid]).then(realm => {
+            realm[0].role = res.locals.user._realms_[realm[0].id];
+            return res.json(realm[0]);
+        }).catch(errorHandler(res));
+        /*
         Realms.dashboard(res.locals.user.id, req.params.rid).then(data => {
             res.json(data);
-            //res.render('index.html', data);
         }).catch(err => {
             console.log(err);
             res.json(err);
         });
+        */
 
     }); //endpoint
 
