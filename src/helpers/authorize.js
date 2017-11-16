@@ -8,7 +8,6 @@ const DEBUG = 0,
 
 module.exports = function(app) {
 
-    var Bookshelf = app.get('bookshelf');
     var _ = require("lodash");
     let Cameras = app.locals.model.cameras;
     let Users = app.locals.model.users;
@@ -19,7 +18,6 @@ module.exports = function(app) {
         return function(req, res, next) {
 
             //Check if user has access to realm
-
             if (_.includes(res.locals.user._rids_, Number(req.params.rid))) {
 
                 //Privilege key is provided

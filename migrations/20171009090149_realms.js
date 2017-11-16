@@ -69,5 +69,12 @@ var dummy = [{
         city: 'Tartu',
         street: 'Kreutzwaldi',
         street_number: '52'
+    }, {
+        name: 'KÜ Kungla 11',
+        country: 'Eesti',
+        region: 'Lääne-Virumaa',
+        city: 'Rakvere',
+        street: 'Kungla',
+        street_number: '11'
     }
 ]
