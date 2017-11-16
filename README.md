@@ -41,7 +41,7 @@ All id's are numbers.
 
 |Method     | Resource                  | Description                           | Keys               | Response
 | ------    | ------                    | ------                                | -----              | -----
-| POST      | /recognize/{asset_tag}    | Whether or not open the gate          |                    | { data? } / boolean?
+| POST      | /recognize/{asset_tag}    | Whether or not open the gate          |                    |
 
 
 ```
@@ -57,7 +57,7 @@ curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@temp/image.jpg
 | ------    | ------                    | ------                                | -----                                 | -----
 | POST      | /login                    | Authenticate and login                | email, password                       | {success, message}
 | PUT       | /logout                   | Log out and end session               | ...                                   | {success, message}
-| GET       | /status                   | Logged in status                      | ...                                   | {message, user}
+| GET       | /status                   | Logged in status                      | ...                                   | `{message, user}` or ` {message}`
 
 ### 2. LANDING:
 ---
@@ -73,7 +73,7 @@ curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@temp/image.jpg
 ![account_settings-view](https://raw.githubusercontent.com/RaimoJohanson/apelsin/master/Prototype/account_settings.png)
 
 |Method     | Resource                    | Description                           | Keys                                                | Response   
-| ------    | ------                            | ------                                | -----                                               | -----   
+| ------    | ------                      | ------                                | -----                                               | -----   
 | GET       | /users/{user_id}            | Get specified user                    |                                                     | [{ ... }]
 | PUT       | /users/{user_id}            | Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
 | DELETE    | /users/{user_id}            | Delete existing user                  |                                                     |
@@ -106,6 +106,7 @@ Example: https://www.example.com/v1/realms
 
 |Method     | Resource                          | Description                           | Keys                                                | Response              
 | ------    | ------                            | ------                                | -----                                               | -----   
+| GET       | /users?                           | Search account                        | email                                               | [{ ... }]
 | GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
 | GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{ ... }]
 | POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 

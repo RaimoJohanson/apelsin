@@ -50,7 +50,6 @@ module.exports = function(app) {
     });
 
     router.put('/logout', function(req, res) {
-
         console.log('| User: %s logged out', req.session.passport.user);
         req.logout();
 

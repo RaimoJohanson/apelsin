@@ -56,9 +56,11 @@ module.exports = function(app) {
     Authorize.account = function(key) {
 
         return function(req, res, next) {
+            const GODS = ['DEV', 'SUPER'];
+
             console.log('Authorizing account');
             //if (!req.params.user_id) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <user_id>');
-            if (key === 'CLIENT') {
+            if (key === 'SELF') {
 
                 let role = res.locals.user.role;
 
@@ -66,7 +68,7 @@ module.exports = function(app) {
 
                 if (res.locals.user.id == req.params.user_id) return next();
 
-                else if (role === 'DEV' || role === 'SUPER') return next();
+                else if (GODS.includes(role)) return next();
 
                 else res.status(FORBIDDEN_CODE).end('Forbidden');
             }
@@ -75,11 +77,11 @@ module.exports = function(app) {
 
                 let user = account_role[0];
 
-                if (key === 'DEV' && user.role === 'DEV') return next();
+                if (GODS.includes(key) && GODS.includes(user.role)) return next();
 
-                else if (key === 'SUPER' && user.role === 'SUPER' || user.role === 'DEV') return next();
+                else if (key === user.role || GODS.includes(user.role)) return next();
 
-                else res.status(FORBIDDEN_CODE).end('Forbidden');
+                return res.status(FORBIDDEN_CODE).end('Forbidden');
 
             });
 

@@ -8,8 +8,14 @@ module.exports = function(app) {
     const UsersRealms = app.locals.model.users_realms;
 
     let output = {
-        all: function() {
-            return Users.find(['id', 'first_name', 'last_name', 'email', 'role', 'created_at', 'updated_at', 'created_by', 'updated_by']);
+        all: function(query = {}) {
+            let opts = {};
+            let cols = ['id', 'first_name', 'last_name', 'email', 'role', 'created_at', 'updated_at', 'created_by', 'updated_by'];
+            if (query.email) {
+                cols = ['id', 'first_name', 'last_name', 'email'];
+                opts.where = { email: query.email };
+            }
+            return Users.find(cols, opts);
         },
         create: function(data) {
             return new Promise((resolve, reject) => {
