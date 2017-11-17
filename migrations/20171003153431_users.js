@@ -7,10 +7,11 @@ exports.up = function(knex, Promise) {
             table.string('email');
             table.string('password');
             table.enum('role', ['SUPER', 'CLIENT', 'DEV']);
-            table.timestamp('created_at').defaultTo(knex.fn.now());
-            table.timestamp('updated_at');
+            //table.boolean('activated').defaultTo(false);
             table.integer('created_by').unsigned().references('users.id');
             table.integer('updated_by').unsigned().references('users.id');
+            table.timestamp('created_at').defaultTo(knex.fn.now());
+            table.timestamp('updated_at');
         })
         .then(() => {
 
