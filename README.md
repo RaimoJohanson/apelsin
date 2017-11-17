@@ -1,15 +1,25 @@
 
 # G8Keeper API
-
 ## Reference document
+##### Table of Contents  
+- [G8Keeper API](#g8keeper-api)
+    - [DEMO HTML](#demo-html)
+    - [To-do](#to-do)
+    - [KEYS & VALUES](#keys-values)
+    - [RASPBERRY](#raspberry)
+    - [1. AUTHENTICATING](#1-authenticating)
+    - [2. LANDING:](#2-landing)
+    - [3. ACCOUNT SETTINGS:](#3-account-settings)
+    - [4. DASHBOARD:](#4-dashboard)
+    - [5. REALM SETTINGS:](#5-realm-settings)
+    - [6. VEHICLES](#6-vehicles)
+    - [7. CAMERAS](#7-cameras)
+    - [8. RULES](#8-rules)
+    - [9. LOGS](#9-logs)
+
+
 ### DEMO HTML
 https://kooliprojekt-raimoj.c9users.io/test/landing.html
-
-### To-do
-1. Rules independent from vehicles
-2. User settings / password reset
-3. Realm settings: adding users/admins
-4. Test deleting
 
 ### KEYS & VALUES
 Format of the keys are consistent throughout the API.
