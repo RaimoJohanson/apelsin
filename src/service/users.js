@@ -21,13 +21,19 @@ module.exports = function(app) {
             return new Promise((resolve, reject) => {
                 if (!data.email || !data.password) return reject('Missing <email> and/or <password> parameters');
 
-                let exp = ['first_name', 'last_name', 'email', 'password', 'role', 'created_by'];
+                let exp = ['first_name', 'last_name', 'email', 'password', 'created_by'];
 
                 let validated = Validate.object(data, exp);
 
-                validated.password = hash.crypt(validated.password);
+                Users.find(['id'], { where: { email: validated.email } }).then(results => {
+                    if (results[0]) return reject('Email address already registered');
 
-                Users.insert(validated).then(resolve).catch(reject);
+                    validated.role = 'CLIENT';
+                    validated.password = hash.crypt(validated.password);
+
+                    Users.insert(validated).then(resolve).catch(reject);
+
+                }).catch(reject);
 
             });
         },
@@ -35,7 +41,7 @@ module.exports = function(app) {
             return Users.select(['id', 'first_name', 'last_name', 'email', 'role', 'created_at', 'updated_at', 'created_by', 'updated_by'], { id: user_id });
         },
         update: function(data, user_id) {
-            let exp = ['first_name', 'last_name', 'email', 'password', 'role', 'updated_by'];
+            let exp = ['first_name', 'last_name', 'email', 'password', 'updated_by'];
 
             let validated = Validate.object(data, exp);
 
@@ -70,17 +76,15 @@ module.exports = function(app) {
                 });
             },
             create: function(data, realm_id) {
-                //return new Promise((resolve, reject) => { resolve('DEV: Account created and realm added.') });
                 return new Promise((resolve, reject) => {
-                    data.realm_role = data.role;
-                    data.role = 'CLIENT';
 
-                    output.create(data).then(new_user => {
+                    if (!data.user_id) return reject({ message: 'user_id parameter missing' });
 
-                        UsersRealms.insert({ user_id: new_user[0].id, realm_id: realm_id, role: data.realm_role }).then(() => {
-                            return 'Account created and realm added.';
-                        })
-                    })
+                    UsersRealms.insert({ user_id: data.user_id, realm_id: realm_id, role: data.role }).then(() => {
+                        return resolve({ message: 'Added.' });
+                    }).catch(reject);
+
+
                 });
             },
             update: function(data, realm_id, user_id) {
@@ -91,7 +95,7 @@ module.exports = function(app) {
                             data.role = 'CLIENT';
                         }
                         UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
-                            return 'Account created and realm added.';
+                            return resolve({ message: 'Updated.' });
                         })
                     })
                 });
@@ -100,7 +104,7 @@ module.exports = function(app) {
                 return new Promise((resolve, reject) => {
 
                     UsersRealms.delete({ user_id: user_id, realm_id: realm_id }).then(() => {
-                        return 'Realm relation deleted.';
+                        return resolve({ message: 'Deleted.' });
                     })
                 });
             }

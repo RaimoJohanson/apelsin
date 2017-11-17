@@ -40,7 +40,6 @@ module.exports = function(app) {
         },
         update: function(data, where) {
             data.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
-
             return Knex(TABLE_NAME).update(data).where(where);
         },
         delete: function(where) {

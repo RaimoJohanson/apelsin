@@ -17,7 +17,6 @@ module.exports = function(app) {
     let Users = require('../service/users')(app);
     //===================
 
-
     router.get('/users', Authorize.account(CLIENT), function(req, res, next) {
         if (!req.query.email) return next();
 
@@ -26,7 +25,6 @@ module.exports = function(app) {
         }).catch(errorHandler(res));
 
     }, Authorize.account(SUPER), function(req, res) {
-
 
         Users.all().then(result => {
             return res.json(result);
@@ -43,7 +41,6 @@ module.exports = function(app) {
 
     router.post('/users', Authorize.account(SUPER), function(req, res) {
         req.body.created_by = res.locals.user.id;
-        req.body.created_at = moment().format("YYYY-MM-DD kk:mm:ss");
 
         Users.create(req.body).then(result => {
             return res.json(result);
@@ -53,7 +50,6 @@ module.exports = function(app) {
 
     router.put('/users/:user_id', Authorize.account(SELF), function(req, res) {
         req.body.updated_by = res.locals.user.id;
-        req.body.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
 
         Users.update(req.body, req.params.user_id).then(result => {
             return res.json(result);
@@ -61,7 +57,7 @@ module.exports = function(app) {
 
     });
 
-    router.delete('/users/:user_id', Authorize.account(SUPER), function(req, res) {
+    router.delete('/users/:user_id', Authorize.account(SELF), function(req, res) {
 
         Users.delete(req.params.user_id).then(result => {
             return res.json(result);
@@ -97,6 +93,7 @@ module.exports = function(app) {
     });
 
     router.post('/realms/:rid/users', Authorize.realm('ADMIN'), function(req, res) {
+        req.body.created_by = res.locals.user.id;
 
         Users.realm.create(req.body, req.params.rid).then(result => {
             return res.json(result);

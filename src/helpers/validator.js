@@ -28,8 +28,8 @@ const types = {
 };
 
 const exp = {
-    users_create: ['first_name', 'last_name', 'email', 'password', 'role', 'created_at', 'created_by'],
-    users_update: ['first_name', 'last_name', 'email', 'password', 'role', 'updated_at', 'updated_by'],
+    users_create: ['first_name', 'last_name', 'email', 'password', 'created_at', 'created_by'],
+    users_update: ['first_name', 'last_name', 'email', 'password', 'updated_at', 'updated_by'],
 
     realms_create: ['name', 'country', 'region', 'city', 'street', 'street_number', 'created_at', 'created_by'],
     realms_update: ['name', 'country', 'region', 'city', 'street', 'street_number', 'updated_at', 'updated_by'],
