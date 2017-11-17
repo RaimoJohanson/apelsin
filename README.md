@@ -124,8 +124,8 @@ Example: https://www.example.com/v1/realms
 | GET       | /users?                           | Search account                        | email                                               | [{ ... }]
 | GET       | /realms/{realm_id}/users          | List of users                         |                                                     | [{ ... }]
 | GET       | /realms/{realm_id}/users/{user_id}| Get specified user                    |                                                     | [{ ... }]
-| POST      | /realms/{realm_id}/users          | Add new user                          |'first_name', 'last_name','email', 'role','password' | 
-| PUT       | /realms/{realm_id}/users/{user_id}| Modify existing user                  |'first_name', 'last_name','email', 'role','password' | 
+| POST      | /realms/{realm_id}/users          | Add existing user                     |'role','user_id'                                     | 
+| PUT       | /realms/{realm_id}/users/{user_id}| Modify existing user                  |'role'                                               | 
 | DELETE    | /realms/{realm_id}/users/{user_id}| Delete existing user                  |                                                     |
 
 ### 6. VEHICLES

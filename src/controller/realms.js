@@ -11,8 +11,9 @@ module.exports = function(app) {
     const errorHandler = require('../helpers/errorhandler');
 
     const Authorize = require('../helpers/authorize')(app);
-    var Logs = require('../service/logs')(app);
+
     var Realms = require('../service/realms')(app);
+    var Users = require('../service/users')(app);
     //===================
 
 
@@ -63,7 +64,50 @@ module.exports = function(app) {
 
     }); //endpoint
 
+    //========================================================================================
+    //======================        REALM USERS          =====================================
+    //========================================================================================
+    router.get('/realms/:rid/users', Authorize.realm('ADMIN'), function(req, res) {
 
+        Users.realm.all(req.params.rid).then(result => {
+            return res.json(result);
+        }).catch(errorHandler(res));
+
+    });
+
+    router.get('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.find(req.params.rid, req.params.user_id).then(result => {
+            return res.json(result);
+        }).catch(errorHandler(res));
+
+    });
+
+    router.post('/realms/:rid/users', Authorize.realm('ADMIN'), function(req, res) {
+        req.body.created_by = res.locals.user.id;
+
+        Users.realm.create(req.body, req.params.rid).then(result => {
+            return res.json(result);
+        }).catch(errorHandler(res));
+
+    });
+
+    router.put('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+        req.body.updated_by = res.locals.user.id;
+
+        Users.realm.update(req.body, req.params.rid, req.params.user_id).then(result => {
+            return res.json(result);
+        }).catch(errorHandler(res));
+
+    });
+
+    router.delete('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
+
+        Users.realm.delete(req.params.rid, req.params.user_id).then(result => {
+            return res.json(result);
+        }).catch(errorHandler(res));
+
+    });
 
     app.use(ROUTE, router);
 }; //end of module.exports

@@ -89,15 +89,10 @@ module.exports = function(app) {
             },
             update: function(data, realm_id, user_id) {
                 return new Promise((resolve, reject) => {
-                    output.update(data, user_id).then(qq => {
-                        if (data.role) {
-                            data.realm_role = data.role;
-                            data.role = 'CLIENT';
-                        }
-                        UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
-                            return resolve({ message: 'Updated.' });
-                        })
-                    })
+
+                    UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
+                        return resolve({ message: 'Updated.' });
+                    }).catch(reject);
                 });
             },
             delete: function(user_id, realm_id) {
