@@ -18,10 +18,16 @@
     - [9. LOGS](#9-logs)
 
 
-### DEMO HTML
-https://kooliprojekt-raimoj.c9users.io/test/landing.html
+### DEVELOPER NOTES
+---
 
+```
+DEMO HTML https://kooliprojekt-raimoj.c9users.io/test/landing.html
+
+
+```
 ### KEYS & VALUES
+---
 Format of the keys are consistent throughout the API.
 All id's are numbers.
 
