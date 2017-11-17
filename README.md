@@ -3,8 +3,7 @@
 ## Reference document
 ##### Table of Contents  
 - [G8Keeper API](#g8keeper-api)
-    - [DEMO HTML](#demo-html)
-    - [To-do](#to-do)
+    - [DEVELOPER NOTES](#developer-notes)
     - [KEYS & VALUES](#keys-values)
     - [RASPBERRY](#raspberry)
     - [1. AUTHENTICATING](#1-authenticating)
