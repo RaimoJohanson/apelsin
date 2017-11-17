@@ -10,11 +10,11 @@ module.exports = function(app) {
     const Authorize = require('../helpers/authorize')(app);
 
 
-    let cameras = require('../service/cameras')(app);
+    let Cameras = require('../service/cameras')(app);
 
     router.get('/realms/:rid/cameras', Authorize.realm(), function(req, res) {
 
-        cameras.read(req.params.rid).then(data => {
+        Cameras.read(req.params.rid).then(data => {
             res.json(data);
             // res.render('vehicles', data);
         }).catch(errorHandler(res));
@@ -22,7 +22,7 @@ module.exports = function(app) {
 
     router.post('/realms/:rid/cameras', Authorize.realm(ADMIN), function(req, res) {
 
-        cameras.create(req.body, req.params.rid).then(result => {
+        Cameras.create(req.body, req.params.rid).then(result => {
 
             res.json(result);
 
@@ -32,7 +32,7 @@ module.exports = function(app) {
 
     router.put('/realms/:rid/cameras/:cid', Authorize.realm(ADMIN), function(req, res) {
 
-        cameras.update(req.body, req.params.vid, req.params.rid).then(result => {
+        Cameras.update(req.body, req.params.cid, req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
 
@@ -40,7 +40,7 @@ module.exports = function(app) {
 
     router.delete('/realms/:rid/cameras/:camera_id', Authorize.realm(ADMIN), function(req, res) {
 
-        cameras.delete(req.params.camera_id, req.params.rid).then(result => {
+        Cameras.delete(req.params.camera_id, req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
 

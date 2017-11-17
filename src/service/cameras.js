@@ -7,24 +7,35 @@ module.exports = function(app) {
 
     let output = {
 
-        create: function(params, realm_id) {
+        create: function(body, realm_id) {
             return new Promise((resolve, reject) => {
 
-                let data = Validate.body(params, 'cameras_create');
+                let data = Validate.body(body, 'cameras_create');
                 data.realm_id = realm_id;
 
-                Cameras.select('id', { asset_tag: data.asset_tag, realm_id: data.realm_id }).then(result => {
-                    if (result[0]) return resolve('Camera already exists');
+                Cameras.select('id', { asset_tag: data.asset_tag }).then(result => {
+                    if (result[0]) return resolve('Camera already in use.');
                     Cameras.insert(data).then(resolve('Camera added.')).catch(reject);
                 }).catch(reject);
 
             });
         },
         read: function(realm_id) {
-            return Cameras.select(['id', 'asset_tag', 'ip_address', 'alias'], { realm_id: realm_id })
+            return Cameras.select(['id', 'asset_tag', 'ip_address', 'alias'], { realm_id: realm_id });
         },
-        update: function(data, vehicle_id, realm_id) {
-            return Cameras.update(Validate.body(data, 'cameras_update'), { id: vehicle_id, realm_id: realm_id });
+        update: function(data, camera_id, realm_id) {
+            return new Promise((resolve, reject) => {
+
+                let data = Validate.body(data, 'cameras_update');
+
+                Cameras.select('id', { asset_tag: data.asset_tag }).then(result => {
+                    if (result[0] && result[0].id != camera_id) return resolve('Camera already in use.');
+
+                    Cameras.update(data, { id: camera_id, realm_id: realm_id }).then(resolve('Camera data updated.')).catch(reject);
+
+                }).catch(reject);
+
+            });
         },
         delete: function(camera_id, realm_id) {
             return Cameras.delete({ id: camera_id, realm_id: realm_id })
