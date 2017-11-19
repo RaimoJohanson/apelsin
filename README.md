@@ -23,6 +23,8 @@
 ```
 DEMO HTML https://kooliprojekt-raimoj.c9users.io/test/landing.html
 
+Ideed:
+Reeglitesse ühe korra pääsud. Auto pääseb vaid ühe korra sisse. ehk siis ajutine luba.
 
 ```
 ### KEYS & VALUES
