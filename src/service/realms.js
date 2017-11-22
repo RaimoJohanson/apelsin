@@ -18,7 +18,7 @@ module.exports = function(app) {
 
                 Realms.insert(Validate.body(data, 'realms_create')).then(new_realm => {
 
-                    UsersRealms.insert({ user_id: creator_id, realm_id: new_realm[0], role: 'ADMIN' }).then(() => {
+                    UsersRealms.insert({ user_id: creator_id, realm_id: new_realm[0], role: 'OWNER' }).then(() => {
 
                         return resolve('Realm created');
                     });

@@ -1,11 +1,13 @@
 "use strict";
 
-const bodyParser = require('body-parser');
-const _ = require('lodash');
-const passport = require('passport');
-const session = require('express-session');
-const KnexSessionStore = require('connect-session-knex')(session);
-const url = require('url');
+var bodyParser = require('body-parser');
+var _ = require('lodash');
+var passport = require('passport');
+var session = require('express-session');
+var KnexSessionStore = require('connect-session-knex')(session);
+var url = require('url');
+var moment = require('moment');
+
 module.exports = function(app) {
   // =============================================================================
   // Database ORM
@@ -47,7 +49,6 @@ module.exports = function(app) {
     'resave': true,
     'cookie': {
       'maxAge': (24 * 60 * 60 * 1000) // 24 hour
-      //'maxAge': 10000
     },
     'store': store
   }));
@@ -63,13 +64,14 @@ module.exports = function(app) {
     if (requested_url.includes("/v1/recognize")) return next();
 
     if (!req.isAuthenticated()) {
+      console.log('Request| %s | Unauthenticated | %s', moment().format("YYYY-MM-DD kk:mm:ss"), req.originalUrl);
       return res.status(401).json({ message: 'Not logged in' });
     }
 
 
     res.locals.user = req.user.attributes;
 
-    console.log('Request| %s %s (ID: %s) | %s | %s', res.locals.user.first_name, res.locals.user.last_name, res.locals.user.id, req.method, req.originalUrl);
+    console.log('Request| %s | %s %s (ID: %s) | %s | %s', moment().format("YYYY-MM-DD kk:mm:ss"), res.locals.user.first_name, res.locals.user.last_name, res.locals.user.id, req.method, req.originalUrl);
 
     require('./user_session')(app, req, res, next);
 

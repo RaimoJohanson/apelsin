@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
             table.timestamp('created_at').defaultTo(knex.fn.now());
         })
         .then(() => {
-            return knex('logs').insert(gen(200));
+            return knex('logs').insert(gen(50));
         });
 };
 
@@ -36,7 +36,7 @@ var gen = function(records) {
             camera_id: getRandomInt(1, 11),
             vehicle_id: getRandomInt(1, 13),
             realm_id: getRandomInt(1, 5),
-            created_at: getRandomInt(2017, 2017) + '-' + getRandomInt(1, 12) + '-' + getRandomInt(1, 30) + ' ' + getRandomInt(1, 23) + ':' + getRandomInt(1, 59) + ':' + getRandomInt(1, 59)
+            created_at: getRandomInt(2017, 2017) + '-' + getRandomInt(1, 10) + '-' + getRandomInt(1, 30) + ' ' + getRandomInt(1, 23) + ':' + getRandomInt(1, 59) + ':' + getRandomInt(1, 59)
         });
 
     }

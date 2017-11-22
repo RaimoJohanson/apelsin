@@ -52,11 +52,9 @@ module.exports = function(app) {
         };
     };
     Authorize.account = function(key) {
-
         return function(req, res, next) {
             const GODS = ['DEV', 'SUPER'];
 
-            console.log('Authorizing account');
             //if (!req.params.user_id) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <user_id>');
             if (key === 'SELF') {
 

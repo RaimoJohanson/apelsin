@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
             table.foreign('user_id').onDelete('CASCADE').references('users.id');
             table.integer('realm_id').unsigned();
             table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
-            table.enum('role', ['ADMIN', 'USER']);
+            table.enum('role', ['OWNER', 'ADMIN', 'USER']);
             table.integer('created_by').unsigned();
             table.foreign('created_by').onDelete('SET NULL').references('users.id');
             table.integer('updated_by').unsigned();

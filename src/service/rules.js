@@ -2,6 +2,7 @@
 const INVALID_CAMERA = 'Invalid camera asset tag';
 const POLICY_DECISION = 'Policy decision';
 const DEFAULT_REASON = 'Default decision';
+const UNRECOGNIZED = 'Licence plate not detected';
 module.exports = function(app) {
     let async = require('async');
     let moment = require('moment');
@@ -62,7 +63,12 @@ module.exports = function(app) {
         }, //checkPlate
         checkPolicy: function(data) {
             return new Promise((resolve, reject) => {
-                //if (data.accepted === 0) return resolve(data);
+                if (!data.plate) {
+                    data.plate = "N/A";
+                    data.reason = UNRECOGNIZED;
+                    data.accepted = 0;
+                    return resolve(data);
+                }
 
                 let today = {
                     weekday: moment().day(),

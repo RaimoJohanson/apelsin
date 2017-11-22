@@ -8,6 +8,12 @@ exports.up = function(knex, Promise) {
             //table.boolean('accepted').defaultTo(true);
             table.integer('realm_id').unsigned();
             table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
+            table.integer('created_by').unsigned();
+            table.foreign('created_by').onDelete('SET NULL').references('users.id');
+            table.integer('updated_by').unsigned();
+            table.foreign('updated_by').onDelete('SET NULL').references('users.id');
+            table.timestamp('created_at').defaultTo(knex.fn.now());
+            table.timestamp('updated_at');
         })
         .then(() => {
 

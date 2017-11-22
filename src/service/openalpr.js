@@ -36,7 +36,11 @@ module.exports = function(app) {
                         console.log('openalpr connect done');
                         console.log(data);
                         let parsed = JSON.parse(data);
-                        if (parsed.results[0].plate) {
+                        if (!parsed.results[0]) return resolve({
+                            plate: null,
+                            reason: 'Licence plate not detected'
+                        });
+                        else if (parsed.results[0].plate) {
                             let plate = parsed.results[0].plate;
                             //let confidence = parsed.results[0].confidence;
                             let formatted_data = {

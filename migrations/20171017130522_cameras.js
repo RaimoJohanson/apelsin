@@ -7,6 +7,13 @@ exports.up = function(knex, Promise) {
             table.string('ip_address');
             table.integer('realm_id').unsigned();
             table.foreign('realm_id').onDelete('CASCADE').references('realms.id');
+
+            table.integer('created_by').unsigned();
+            table.foreign('created_by').onDelete('SET NULL').references('users.id');
+            table.integer('updated_by').unsigned();
+            table.foreign('updated_by').onDelete('SET NULL').references('users.id');
+            table.timestamp('created_at').defaultTo(knex.fn.now());
+            table.timestamp('updated_at');
         })
         .then(() => {
 
@@ -27,7 +34,7 @@ var dummy = [{
     }, {
         realm_id: 1,
         asset_tag: 'C100002',
-        alias: 'värav'
+        alias: 'Garaaž'
     }, {
         realm_id: 2,
         asset_tag: 'C100003',
@@ -59,11 +66,11 @@ var dummy = [{
     }, {
         realm_id: 4,
         asset_tag: 'C100009',
-        alias: 'värav'
+        alias: 'Tänava poolne'
     }, {
         realm_id: 4,
         asset_tag: 'C100010',
-        alias: 'värav'
+        alias: 'Garaaž'
     }, {
         realm_id: 4,
         asset_tag: 'C100011',
