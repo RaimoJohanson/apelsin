@@ -40,7 +40,7 @@ All id's are numbers.
 | role                              | string                    | 'ADMIN';'USER'
 | password                          | string                    | 'Str0nkPassw0rd'
 | accepted                          | boolean                   | 1;0;true;false
-| mon, tue, wed, thu, fri, sat, sun | boolean                   | 1;0;true;false
+| days_of_week                      | string(CSV)               | 'mon,sun,sat'
 | begin_date                        | string                    | '2017-12-31'
 | end_date                          | string                    | '2017-12-31'
 | begin_time                        | string                    | '09:59:30'
@@ -185,7 +185,7 @@ Example: https://www.example.com/api/v1/realms/1/rules
 | DELETE    | /rules/{rule_id}              | Delete existing rule                  |                                       |
 | GET       | /vehicles?input               | Autocomplete vehicle within spec. realm. Will search for 'plate','model','make'   | input  | [{ ... }]
 
-Parameters: 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
+Parameters: 'accepted', 'days_of_week', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'
 
 ### 9. LOGS
 ---
