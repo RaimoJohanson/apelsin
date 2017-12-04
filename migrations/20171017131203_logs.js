@@ -14,10 +14,12 @@ exports.up = function(knex, Promise) {
             table.integer('camera_id').unsigned();
             table.foreign('camera_id').onDelete('SET NULL').references('cameras.id');
             table.timestamp('created_at').defaultTo(knex.fn.now());
-        })
-        .then(() => {
-            return knex('logs').insert(gen(50));
         });
+    /*
+    .then(() => {
+        return knex('logs').insert(gen(50));
+    });
+    */
 };
 
 exports.down = function(knex, Promise) {

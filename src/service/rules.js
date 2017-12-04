@@ -17,18 +17,18 @@ module.exports = function(app) {
     let output = {
 
         all: function(realm_id) {
-            return Rules.select(['id', 'accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'], { realm_id: realm_id });
+            return Rules.select(['id', 'accepted', 'days_of_week', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'], { realm_id: realm_id });
         },
         create: function(data, realm_id) {
             data.realm_id = realm_id;
-            let exp = ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate', 'realm_id'];
+            let exp = ['accepted', 'days_of_week', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate', 'realm_id'];
             return Rules.insert(Validate.object(data, exp));
         },
         read: function(realm_id, rule_id) {
-            return Rules.select(['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'], { realm_id: realm_id, id: rule_id });
+            return Rules.select(['accepted', 'days_of_week', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'], { realm_id: realm_id, id: rule_id });
         },
         update: function(data, realm_id, rule_id) {
-            let exp = ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'];
+            let exp = ['accepted', 'days_of_week', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'];
             return Rules.update(Validate.object(data, exp), { realm_id: realm_id, id: rule_id });
         },
         delete: function(realm_id, rule_id) {

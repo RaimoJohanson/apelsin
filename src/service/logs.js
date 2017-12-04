@@ -37,6 +37,9 @@ module.exports = function(app) {
         readOne: function(realm_id, log_id) {
             return Logs.select('*', { realm_id: realm_id, id: log_id });
         },
+        getImage: function(realm_id, log_id) {
+            return Logs.select('file_name', { realm_id: realm_id, id: log_id });
+        },
         clean: function(realm_id, vehicle_id) {
             let q = {
                 where: { realm_id: realm_id, vehicle_id: vehicle_id },

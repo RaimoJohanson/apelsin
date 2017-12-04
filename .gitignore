@@ -5,3 +5,4 @@ archive
 src/controller/test.js
 knexfile.js
 CLIPBOARD.md
+src/archive

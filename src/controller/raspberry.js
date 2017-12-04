@@ -15,7 +15,7 @@ module.exports = function(app) {
     //===================
 
     var storage = multer.diskStorage({
-        destination: 'archive/',
+        destination: 'src/archive/',
         filename: function(req, file, cb) {
             cb(null, Date.now() + '_' + file.originalname);
         }

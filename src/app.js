@@ -7,7 +7,7 @@ var session = require('express-session');
 var KnexSessionStore = require('connect-session-knex')(session);
 var url = require('url');
 var moment = require('moment');
-
+const path = require('path');
 module.exports = function(app) {
   // =============================================================================
   // Database ORM
@@ -18,6 +18,8 @@ module.exports = function(app) {
   // MODELS_GENERAL
   // =============================================================================
   require('./model/index')(app);
+
+  app.set('rootPath', path.resolve(__dirname));
 
   var rawBodySaver = function(req, res, buffer, encoding) {
     if (buffer && buffer.length) req.rawBody = buffer.toString(encoding || 'utf8');
