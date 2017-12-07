@@ -28,23 +28,12 @@ module.exports = function(app) {
         select: function(columns, where) {
             return Knex(TABLE_NAME).select(columns).where(where);
         },
-        insert: function(col) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .insert(col)
-                    .returning('id')
-                    .then(resolve)
-                    .catch(reject);
-            });
+        insert: function(data) {
+            return Knex(TABLE_NAME).insert(data).returning('id');
         },
-        update: function(col, where) {
-            return new Promise((resolve, reject) => {
-                Knex(TABLE_NAME)
-                    .update(col)
-                    .where(where)
-                    .then(resolve)
-                    .catch(reject);
-            });
+        update: function(data, where) {
+            data.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
+            return Knex(TABLE_NAME).update(data).where(where)
         },
         delete: function(where) {
             return Knex(TABLE_NAME).del().where(where);
@@ -59,8 +48,6 @@ module.exports = function(app) {
                     .orWhere('model', 'like', '%' + input + '%');
 
             });
-
-
 
             return qb;
         },

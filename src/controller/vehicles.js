@@ -34,7 +34,7 @@ module.exports = function(app) {
     }); //end of app.get
 
     router.post('/realms/:rid/vehicles', Authorize.realm(ADMIN), function(req, res) {
-
+        req.body.created_by = res.locals.user.id;
         vehicles.create(req.body, req.params.rid).then(result => {
 
             res.json(result);
@@ -44,7 +44,7 @@ module.exports = function(app) {
     }); //end of endpoint
 
     router.put('/realms/:rid/vehicles/:vid', Authorize.realm(ADMIN), function(req, res) {
-
+        req.body.updated_by = res.locals.user.id;
         vehicles.update(req.body, req.params.vid, req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));

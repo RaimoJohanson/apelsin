@@ -8,13 +8,12 @@ module.exports = function(app) {
     let output = {
         create: function(params, realm_id) {
             return new Promise((resolve, reject) => {
-
-                let data = Validate.object(params, 'vehicles_create');
+                let data = Validate.body(params, 'vehicles_create');
                 data.realm_id = realm_id;
 
                 Vehicles.select('id', { plate: data.plate, realm_id: data.realm_id }).then(result => {
                     if (result[0]) return resolve('Vehicle already exists');
-                    Vehicles.insert(data).then(resolve('Vehicle added.')).catch(reject);
+                    Vehicles.insert(data).then(resolve('Vehicle added!')).catch(reject);
                 }).catch(reject);
 
             });
