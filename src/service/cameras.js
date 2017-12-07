@@ -23,10 +23,10 @@ module.exports = function(app) {
         read: function(realm_id) {
             return Cameras.select(['id', 'asset_tag', 'ip_address', 'alias'], { realm_id: realm_id });
         },
-        update: function(data, camera_id, realm_id) {
+        update: function(raw, camera_id, realm_id) {
             return new Promise((resolve, reject) => {
 
-                let data = Validate.body(data, 'cameras_update');
+                let data = Validate.body(raw, 'cameras_update');
 
                 Cameras.select('id', { asset_tag: data.asset_tag }).then(result => {
                     if (result[0] && result[0].id != camera_id) return resolve('Camera already in use.');
