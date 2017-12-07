@@ -32,7 +32,7 @@ module.exports = function(app) {
     });
 
     router.get('/users/:user_id', Authorize.account(SELF), function(req, res) {
-        console.log('here');
+
         Users.read(req.params.user_id).then(result => {
             return res.json(result);
         }).catch(errorHandler(res));

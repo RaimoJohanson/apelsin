@@ -34,16 +34,16 @@ const exp = {
     realms_create: ['name', 'country', 'region', 'city', 'street', 'street_number', 'created_at', 'created_by'],
     realms_update: ['name', 'country', 'region', 'city', 'street', 'street_number', 'updated_at', 'updated_by'],
 
-    vehicles_create: ['plate', 'make', 'model', 'realm_id'],
-    vehicles_update: ['make', 'model', 'plate'],
+    vehicles_create: ['plate', 'make', 'model', 'realm_id', 'created_at', 'created_by'],
+    vehicles_update: ['make', 'model', 'plate', 'updated_at', 'updated_by'],
 
-    cameras_create: ['asset_tag', 'alias', 'ip_address', 'realm_id'],
-    cameras_update: ['asset_tag', 'alias', 'ip_address'],
+    cameras_create: ['asset_tag', 'alias', 'ip_address', 'realm_id', 'created_at', 'created_by'],
+    cameras_update: ['asset_tag', 'alias', 'ip_address', 'updated_at', 'updated_by'],
 
     logs_create: ['accepted', 'plate', 'file_name', 'camera_id', 'reason', 'realm_id', 'vehicle_id'],
 
-    rules_create: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate', 'realm_id'],
-    rules_update: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate'],
+    rules_create: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate', 'realm_id', 'created_at', 'created_by'],
+    rules_update: ['accepted', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'begin_date', 'end_date', 'begin_time', 'end_time', 'plate', 'updated_at', 'updated_by'],
 
 };
 

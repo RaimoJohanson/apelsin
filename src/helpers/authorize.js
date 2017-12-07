@@ -19,9 +19,9 @@ module.exports = function(app) {
 
             //Check if user has access to realm
             if (_.includes(res.locals.user._rids_, Number(req.params.rid))) {
-
+                if (res.locals.user._realms_[req.params.rid] == 'OWNER') return next();
                 //Privilege key is provided
-                if (key) {
+                else if (key) {
                     //Check privileges
                     console.log('Checking privileges');
                     if (res.locals.user._realms_[req.params.rid] == key) return next();

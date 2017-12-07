@@ -55,7 +55,7 @@ module.exports = function(app) {
         realm: {
             all: function(realm_id) {
 
-                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', /*'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by',*/ 'users_realms.role as realm_role'], {
+                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', /*'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by',*/ 'users_realms.role as role'], {
                     related: [{
                         target_column: 'user_id',
                         target_table: 'users_realms',
@@ -66,7 +66,7 @@ module.exports = function(app) {
                 });
             },
             find: function(realm_id, user_id) {
-                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', /*'users.role as account_role', 'created_at', 'updated_at', 'created_by', 'updated_by',*/ 'users_realms.role as realm_role'], {
+                return Users.find(['users.id as id', 'first_name', 'last_name', 'email', 'users_realms.role as role'], {
                     related: [{
                         target_column: 'user_id',
                         target_table: 'users_realms',
@@ -75,32 +75,50 @@ module.exports = function(app) {
                     whereRaw: 'users_realms.realm_id=' + realm_id + ' and users.id=' + user_id
                 });
             },
-            create: function(data, realm_id) {
+            create: function(data, realm_id, actor) {
                 return new Promise((resolve, reject) => {
-
                     if (!data.user_id) return reject({ message: 'user_id parameter missing' });
+                    if (data.role == 'OWNER' || data.role == 'owner') return reject({ message: 'Owner privileges must be granted by another owner after the account is added' });
 
-                    UsersRealms.insert({ user_id: data.user_id, realm_id: realm_id, role: data.role }).then(() => {
-                        return resolve({ message: 'Added.' });
-                    }).catch(reject);
+                    UsersRealms.select('*', { user_id: data.user_id, realm_id: realm_id }).then(check => {
+                        if (check[0]) return reject({ message: 'Account already added!' });
 
-
-                });
-            },
-            update: function(data, realm_id, user_id) {
-                return new Promise((resolve, reject) => {
-
-                    UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
-                        return resolve({ message: 'Updated.' });
+                        UsersRealms.insert({ user_id: data.user_id, realm_id: realm_id, role: data.role, created_by: data.created_by }).then(() => {
+                            return resolve({ message: 'Account added!' });
+                        }).catch(reject);
                     }).catch(reject);
                 });
             },
-            delete: function(user_id, realm_id) {
+            update: function(data, realm_id, user_id, actor) {
                 return new Promise((resolve, reject) => {
+                    if (actor._realms_[1] != 'OWNER' && data.role == 'OWNER' || data.role == 'owner') return reject({ message: 'Owner privileges must be granted by another owner' });
+                    UsersRealms.select('*', { user_id: user_id, realm_id: realm_id }).then(check => {
+                        if (!check.length) reject({ message: 'Account not found.' });
+                        if (check[0] && actor.id != user_id && actor._realms_[1] != 'OWNER') {
+                            if (check[0].role == 'OWNER') return reject({ message: 'Cannot manage owner' });
+                            if (check[0].role == 'ADMIN') return reject({ message: 'Cannot manage other admins' });
+                        }
 
-                    UsersRealms.delete({ user_id: user_id, realm_id: realm_id }).then(() => {
-                        return resolve({ message: 'Deleted.' });
-                    })
+
+                        UsersRealms.update(data, { user_id: user_id, realm_id: realm_id }).then(() => {
+                            return resolve({ message: 'Account role updated!' });
+                        }).catch(reject);
+                    }).catch(reject);
+
+                });
+            },
+            delete: function(realm_id, user_id, actor) {
+                return new Promise((resolve, reject) => {
+                    UsersRealms.select('*', { user_id: user_id, realm_id: realm_id }).then(check => {
+                        if (check[0] && actor.id != user_id && actor._realms_[1] != 'OWNER') {
+                            if (check[0].role == 'OWNER') return reject({ message: 'Cannot remove owner' });
+                            if (check[0].role == 'ADMIN') return reject({ message: 'Cannot remove other admins' });
+                        }
+
+                        UsersRealms.delete({ user_id: user_id, realm_id: realm_id }).then(() => {
+                            return resolve({ message: 'Account removed' });
+                        }).catch(reject);
+                    }).catch(reject);
                 });
             }
         }
