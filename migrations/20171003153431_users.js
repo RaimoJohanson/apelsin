@@ -29,7 +29,7 @@ var dummy = [{
         last_name: 'Saar',
         email: 'sten',
         password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
-        role: 'SUPER'
+        role: 'CLIENT'
     }, {
         first_name: 'Raimo',
         last_name: 'Johanson',
@@ -37,11 +37,11 @@ var dummy = [{
         password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
         role: 'DEV'
     }, {
-        first_name: 'Test1',
-        last_name: 'Client',
-        email: 'test1@client',
+        first_name: 'Henri',
+        last_name: 'Kokk',
+        email: 'skeefee',
         password: 'XQhZ4QFvA2h4Tq/cnzfylw==',
-        role: 'CLIENT'
+        role: 'DEV'
     },
     {
         first_name: 'Test2',

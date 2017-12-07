@@ -19,7 +19,7 @@ module.exports = function(app) {
         },
         read: function(realm_id, opts = {}) {
             return new Promise((resolve, reject) => {
-                Logs.find('*', { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page, orderBy: ['created_at', opts.order] }).then(results => {
+                Logs.find(['id', 'accepted', 'plate', 'created_at', 'camera_id', 'reason', 'vehicle_id'], { where: { realm_id: realm_id }, limit: opts.limit, page: opts.page, orderBy: ['created_at', opts.order || 'desc'] }).then(results => {
 
                     Logs.find('id', { where: { realm_id: realm_id }, count: 'id as total' }).then(count => {
 
@@ -35,7 +35,7 @@ module.exports = function(app) {
             });
         },
         readOne: function(realm_id, log_id) {
-            return Logs.select('*', { realm_id: realm_id, id: log_id });
+            return Logs.select(['id', 'accepted', 'plate', 'created_at', 'camera_id', 'reason', 'vehicle_id'], { realm_id: realm_id, id: log_id });
         },
         getImage: function(realm_id, log_id) {
             return Logs.select('file_name', { realm_id: realm_id, id: log_id });

@@ -86,7 +86,7 @@ module.exports = function(app) {
     router.post('/realms/:rid/users', Authorize.realm('ADMIN'), function(req, res) {
         req.body.created_by = res.locals.user.id;
 
-        Users.realm.create(req.body, req.params.rid).then(result => {
+        Users.realm.create(req.body, req.params.rid, res.locals.user).then(result => {
             return res.json(result);
         }).catch(errorHandler(res));
 
@@ -95,7 +95,7 @@ module.exports = function(app) {
     router.put('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
         req.body.updated_by = res.locals.user.id;
 
-        Users.realm.update(req.body, req.params.rid, req.params.user_id).then(result => {
+        Users.realm.update(req.body, req.params.rid, req.params.user_id, res.locals.user).then(result => {
             return res.json(result);
         }).catch(errorHandler(res));
 
@@ -103,7 +103,7 @@ module.exports = function(app) {
 
     router.delete('/realms/:rid/users/:user_id', Authorize.realm('ADMIN'), function(req, res) {
 
-        Users.realm.delete(req.params.rid, req.params.user_id).then(result => {
+        Users.realm.delete(req.params.rid, req.params.user_id, res.locals.user).then(result => {
             return res.json(result);
         }).catch(errorHandler(res));
 
