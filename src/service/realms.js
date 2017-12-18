@@ -20,24 +20,34 @@ module.exports = function(app) {
 
                     UsersRealms.insert({ user_id: creator_id, realm_id: new_realm[0], role: 'OWNER' }).then(() => {
 
-                        return resolve('Realm created');
-                    });
+                        return resolve({ message: 'Realm created' });
 
-                });
+                    }).catch(reject);
+
+                }).catch(reject);
             });
         },
         read: function(realm_id) {
             return Realms.select('*', { id: realm_id });
         },
         update: function(data, realm_id) {
-            return Realms.update(Validate.body(data, 'realms_update'), { id: realm_id });
+            return new Promise((resolve, reject) => {
+                Realms.update(Validate.body(data, 'realms_update'), { id: realm_id }).then(() => {
+                    return resolve({ message: 'Changes saved' });
+                }).catch(reject);
+            });
+
         },
         delete: function(realm_id) {
-            return Realms.delete({ id: realm_id });
+            return new Promise((resolve, reject) => {
+                Realms.delete({ id: realm_id }).then(() => {
+                    return resolve({ message: 'Realm deleted' });
+                }).catch(reject);
+            });
         },
         landing: function(ids) {
             return new Promise((resolve, reject) => {
-                Realms.find(['id', 'name', 'street_number', 'street', 'city', 'region', 'country'], { whereIn: ['id', ids] }).then(resolve).catch(reject);
+                Realms.find(['id', 'name', 'street_number', 'street', 'city', 'region', 'country', 'created_by as creator_id'], { whereIn: ['id', ids] }).then(resolve).catch(reject);
             });
         },
         dashboard: function(user_id, realm_id) {

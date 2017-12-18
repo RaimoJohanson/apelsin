@@ -41,8 +41,9 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.put('/realms/:rid', Authorize.realm('ADMIN'), function(req, res) {
-
+    router.put('/realms/:rid', Authorize.realm('OWNER'), function(req, res) {
+        req.body.updated_by = res.locals.user.id;
+        
         Realms.update(req.body, req.params.rid).then(result => {
             res.json(result);
         }).catch(errorHandler(res));
@@ -56,7 +57,7 @@ module.exports = function(app) {
 
     }); //endpoint
 
-    router.delete('/realms/:rid', Authorize.realm('ADMIN'), function(req, res) {
+    router.delete('/realms/:rid', Authorize.realm('OWNER'), function(req, res) {
 
         Realms.delete(req.params.rid).then(result => {
             res.json(result);

@@ -15,37 +15,42 @@ module.exports = function(app) {
     router.get('/realms/:rid/cameras', Authorize.realm(), function(req, res) {
 
         Cameras.read(req.params.rid).then(data => {
+
             res.json(data);
-            // res.render('vehicles', data);
+
         }).catch(errorHandler(res));
-    }); //end of app.get
+    });
 
     router.post('/realms/:rid/cameras', Authorize.realm(ADMIN), function(req, res) {
+        req.body.created_by = res.locals.user.id;
 
-        Cameras.create(req.body, req.params.rid).then(result => {
+        Cameras.create(req.body, req.params.rid).then(data => {
 
-            res.json(result);
+            res.json(data);
 
         }).catch(errorHandler(res));
 
-    }); //end of endpoint
+    });
 
     router.put('/realms/:rid/cameras/:cid', Authorize.realm(ADMIN), function(req, res) {
+        req.body.updated_by = res.locals.user.id;
 
-        Cameras.update(req.body, req.params.cid, req.params.rid).then(result => {
-            res.json(result);
+        Cameras.update(req.body, req.params.cid, req.params.rid).then(data => {
+            res.json(data);
         }).catch(errorHandler(res));
 
-    }); //end of endpoint
+    });
 
     router.delete('/realms/:rid/cameras/:camera_id', Authorize.realm(ADMIN), function(req, res) {
 
-        Cameras.delete(req.params.camera_id, req.params.rid).then(result => {
-            res.json(result);
+        Cameras.delete(req.params.camera_id, req.params.rid).then(data => {
+
+            res.json(data);
+
         }).catch(errorHandler(res));
 
-    }); //end of endpoint
+    });
 
     app.use(ROUTE, router);
 
-}; //end of module.exports
+};

@@ -62,6 +62,7 @@ module.exports = function(app) {
     let exeptions = ['/v1/login', '/v1/logout'];
     let requested_url = url.parse(req.url).pathname;
     if (_.includes(exeptions, requested_url)) return next();
+
     if (requested_url.includes("/v1/recognize")) return next();
 
     if (!req.isAuthenticated()) {

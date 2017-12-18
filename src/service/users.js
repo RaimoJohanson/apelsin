@@ -77,8 +77,10 @@ module.exports = function(app) {
             },
             create: function(data, realm_id, actor) {
                 return new Promise((resolve, reject) => {
+                    console.log(actor._realms_[realm_id]);
                     if (!data.user_id) return reject({ message: 'user_id parameter missing' });
                     if (data.role == 'OWNER' || data.role == 'owner') return reject({ message: 'Owner privileges must be granted by another owner after the account is added' });
+                    if (actor._realms_[realm_id] != 'OWNER' && data.role == 'ADMIN' || data.role == 'admin') return reject({ message: 'Admin role can only be given by an owner.' });
 
                     UsersRealms.select('*', { user_id: data.user_id, realm_id: realm_id }).then(check => {
                         if (check[0]) return reject({ message: 'Account already added!' });
@@ -91,12 +93,14 @@ module.exports = function(app) {
             },
             update: function(data, realm_id, user_id, actor) {
                 return new Promise((resolve, reject) => {
-                    if (actor._realms_[1] != 'OWNER' && data.role == 'OWNER' || data.role == 'owner') return reject({ message: 'Owner privileges must be granted by another owner' });
+                    if (actor._realms_[realm_id] != 'OWNER' && data.role == 'OWNER' || data.role == 'owner') return reject({ message: 'Owner privileges must be granted by another owner' });
+                    if (actor._realms_[realm_id] != 'OWNER' && data.role == 'ADMIN' || data.role == 'admin') return reject({ message: 'Admin role can only be given by an owner.' });
                     UsersRealms.select('*', { user_id: user_id, realm_id: realm_id }).then(check => {
                         if (!check.length) reject({ message: 'Account not found.' });
-                        if (check[0] && actor.id != user_id && actor._realms_[1] != 'OWNER') {
+
+                        if (check[0] && actor.id != user_id && actor._realms_[realm_id] != 'OWNER') {
                             if (check[0].role == 'OWNER') return reject({ message: 'Cannot manage owner' });
-                            if (check[0].role == 'ADMIN') return reject({ message: 'Cannot manage other admins' });
+                            if (check[0].role == 'ADMIN') return reject({ message: 'Only owner can manage administrators.' });
                         }
 
 

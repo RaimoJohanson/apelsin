@@ -25,11 +25,11 @@ module.exports = function(app) {
                     //Check privileges
                     console.log('Checking privileges');
                     if (res.locals.user._realms_[req.params.rid] == key) return next();
-                    else return res.status(FORBIDDEN_CODE).send('Forbidden');
+                    else return res.status(FORBIDDEN_CODE).json({ message: 'Forbidden' });
                 }
                 else return next();
             }
-            else return res.status(FORBIDDEN_CODE).send('Access denied');
+            else return res.status(FORBIDDEN_CODE).json({ message: 'Access denied' });
 
         };
 
@@ -42,10 +42,10 @@ module.exports = function(app) {
             if (!req.params.tag) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <asset_tag>');
 
             Cameras.select('*', { asset_tag: req.params.tag }).then(result => {
-                if (!result[0]) return res.status(NOT_FOUND_CODE).end('Camera not found');
+                if (!result[0]) return res.status(NOT_FOUND_CODE).json({ message: 'Camera not found' });
                 else next();
             }).catch(e => {
-                return res.status(FORBIDDEN_CODE).end('Invalid <asset_tag>');
+                return res.status(FORBIDDEN_CODE).json({ message: 'Invalid <asset_tag>' });
             });
 
 
@@ -60,13 +60,13 @@ module.exports = function(app) {
 
                 let role = res.locals.user.role;
 
-                if (!req.params.user_id) return res.status(UNAUTHORIZED_CODE).end('Missing parameter <user_id>');
+                if (!req.params.user_id) return res.status(UNAUTHORIZED_CODE).json({ message: 'Missing parameter <user_id>' });
 
                 if (res.locals.user.id == req.params.user_id) return next();
 
                 else if (GODS.includes(role)) return next();
 
-                else res.status(FORBIDDEN_CODE).end('Forbidden');
+                else res.status(FORBIDDEN_CODE).json({ message: 'Forbidden' });
             }
 
             Users.select('role', { id: res.locals.user.id }).then(account_role => {
@@ -77,7 +77,7 @@ module.exports = function(app) {
 
                 else if (key === user.role || GODS.includes(user.role)) return next();
 
-                return res.status(FORBIDDEN_CODE).end('Forbidden');
+                return res.status(FORBIDDEN_CODE).json({ message: 'Forbidden' });
 
             });
 

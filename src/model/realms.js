@@ -35,11 +35,12 @@ module.exports = function(app) {
         select: function(columns, where) {
             return Knex(TABLE_NAME).select(columns).where(where);
         },
-        insert: function(columns) {
-            return Knex(TABLE_NAME).insert(columns).returning('id');
+        insert: function(data) {
+            return Knex(TABLE_NAME).insert(data).returning('id');
         },
-        update: function(columns, where) {
-            return Knex(TABLE_NAME).update(columns).where(where);
+        update: function(data, where) {
+            data.updated_at = moment().format("YYYY-MM-DD kk:mm:ss");
+            return Knex(TABLE_NAME).update(data).where(where);
         },
         delete: function(where) {
             return Knex(TABLE_NAME).del().where(where);
