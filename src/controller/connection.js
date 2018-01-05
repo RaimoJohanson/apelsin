@@ -1,32 +1,18 @@
 'use strict';
 
 const ROUTE = '/v1';
-const router = require('express').Router();
-const multer = require('multer');
-const errorHandler = require('../helpers/errorhandler');
-
+var router = require('express').Router();
+var errorHandler = require('../helpers/errorhandler');
 
 module.exports = function(app) {
-    const Authorize = require('../helpers/authorize')(app);
-    let Rules = require('../service/rules')(app);
-    let Logs = require('../service/logs')(app);
-
+    var Authorize = require('../helpers/authorize')(app);
+    var Upload = require('../helpers/upload')(app);
+    var Rules = require('../service/rules')(app);
+    var Logs = require('../service/logs')(app);
     var Openalpr = require('../service/openalpr')(app);
-    //===================
 
-    var storage = multer.diskStorage({
-        destination: 'src/archive/',
-        filename: function(req, file, cb) {
-            cb(null, Date.now() + '_' + file.originalname);
-        }
-    });
+    router.post('/recognize/:tag', Authorize.camera(), Upload.image, (req, res) => {
 
-    var upload = multer({
-        storage: storage
-    });
-
-    router.post('/recognize/:tag', Authorize.camera(), upload.single('image'), (req, res) => {
-        console.log('Camera asset_tag valid. Image uploaded');
         console.log(req.file);
         if (!req.file) return res.status(412).json('File not uploaded');
 
@@ -51,7 +37,9 @@ module.exports = function(app) {
     });
 
     router.put('/recognize/:code', /*Authorize.gate(),*/ (req, res) => {
+
         res.json(req.params.code);
+
     }); //app.post
 
 

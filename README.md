@@ -63,7 +63,7 @@ All id's are numbers.
 
 ```
 Example:
-curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@temp/image.jpg" https://example.com/v1/recognize/C100001
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "image=@image.jpg" https://kooliprojekt-raimoj.c9users.io/v1/recognize/C1000443
 
 ```
 ### 1. AUTHENTICATING 
