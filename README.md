@@ -1,8 +1,8 @@
 
-# G8Keeper API
+# Gatey API
 ## Reference document
 ##### Table of Contents  
-- [G8Keeper API](#g8keeper-api)
+- [Gatey API](#g8keeper-api)
     - [DEVELOPER NOTES](#developer-notes)
     - [KEYS & VALUES](#keys-values)
     - [RASPBERRY](#raspberry)
