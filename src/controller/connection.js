@@ -48,9 +48,12 @@ module.exports = function(app) {
             }).catch(errorHandler(res));
 
         }).catch(errorHandler(res));
+    });
+
+    router.put('/recognize/:code', /*Authorize.gate(),*/ (req, res) => {
+        res.json(req.params.code);
     }); //app.post
 
 
-
     app.use(ROUTE, router);
-}; //end of module.exports
+};

@@ -3,12 +3,13 @@
 const ROUTE = '/v1';
 const ADMIN = 'ADMIN';
 const router = require('express').Router();
+const path = require('path');
 
 module.exports = function(app) {
 
     const errorHandler = require('../helpers/errorhandler');
     const Authorize = require('../helpers/authorize')(app);
-
+    const appRoot = app.get('rootPath');
 
     let Cameras = require('../service/cameras')(app);
 
