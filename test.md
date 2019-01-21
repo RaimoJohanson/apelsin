@@ -8,6 +8,7 @@
 ---
 ## Quick reference
 All available endpoints
+
 | Method | URL | More info  |
 | ---    | --- |---|
 | GET   | /atc  | [List of all ATC](#list-atc) |
@@ -16,6 +17,7 @@ All available endpoints
 | GET   | /drugs/:id  | [Get specified drug by ID](#get-specified-drug-by-id) |
 | GET   | /drugs/autocomplete  | [Autocomplete for drugs](#autocomplete-for-drugs) |
 | POST   | /drugs/search | [Search drugs](#search-drugs) |
+
 ---
 
 ## Common
