@@ -30,6 +30,7 @@ Query strings
 | limit         | results per page      |
 | sortBy        | sort by parameter     |
 | sortMethod    | sort method           |
+
 ---
 
 ## ATC
