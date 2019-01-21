@@ -24,6 +24,7 @@ All available endpoints
 
 #### Pagination 
 Query strings
+
 | parameter     | description           |
 | ------------- | -------------         |
 | page          | page                  |
